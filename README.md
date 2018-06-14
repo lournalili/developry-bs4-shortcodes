@@ -1,16 +1,16 @@
 # Develop(ry) Bootstrap 4 Shortcodes
 
-** WORK IN PROGRESS**
+**WORK IN PROGRESS**
 
-This plugin is not yet ready for use in production. I'm currently working on a base set of shortcodes that will be used in our Develop(ry) Lite theme. The plan then for the plugin is to be extended and have as ready-to-use components that will speed up the creation of custom pages and add customized content to posts.
+**This plugin is not yet ready for use in production.** I'm currently working on a base set of shortcodes that will be used in our Develop(ry) Lite theme. The plan then for the plugin is to be extended and have all Bootstrap 4 shortcodes added and additional ready-to-use components that will speed up the creation of custom pages and adding customized content to posts.
 
-I will update this note when I'm ready to release a production-ready version of this plugin, which will be submitted to the WordPress theme repository and can be used for free.
+__I will update this note when I'm ready to release a production-ready version of this plugin, which will be submitted to the WordPress theme repository and can be used for free.__
 
 ## About
 
-A set of WordPress shortcodes for Bootstrap 4 that are supposed to ease the post/page creation in our Develop(ry) themes. 
+A WordPress plugin with set of shortcodes for Bootstrap 4 that are supposed to speed up the post/page creation in our Develop(ry) themes. Additionaly ready-to-use componenets would be added and can saved (exported) for use to any other WordPress theme.
 
-It will be compatible and used by any other WordPress theme.
+__The plugin will be compatible and used by any other WordPress theme.__
 
 ## License
 
