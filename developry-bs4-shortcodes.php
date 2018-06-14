@@ -1,15 +1,15 @@
 <?php
 /**
-Plugin Name: Develop(ry) Bootstrap 4 Shortcodes
-Plugin URL: http://developry.com/developry-bootstrap4-shortcodes
-Description: A set of Bootstrap 4 shortcodes to speed up the page building process for Develop(ry) themes. The plugin is free and can be incorporated for other themes as well.
-Version: 1.0.0
-Author: Krasen Slavov
-Author URI: http://developry.com/author/krasen
-Text Domain: developry-bs4-shortcodes
+	Plugin Name: Develop(ry) Bootstrap 4 Shortcodes
+	Plugin URL: http://developry.com/developry-bootstrap4-shortcodes
+	Description: A set of Bootstrap 4 shortcodes to speed up the page building process for Develop(ry) themes. The plugin is free and can be incorporated for other themes as well.
+	Version: 1.0.0
+	Author: Krasen Slavov
+	Author URI: http://developry.com/author/krasen
+	Text Domain: developry-bs4-shortcodes
 */
 
-	/** Lets check if have all shortcode functions built-in
+	/** Lets check if have all shortcode functions we need built-in
 	 */
 	if ( !function_exists( 'shortcode_atts' ) 
 		|| !function_exists( 'add_shortcode') 
@@ -17,23 +17,29 @@ Text Domain: developry-bs4-shortcodes
 		return;
 
 	if ( is_dir( plugin_dir_path( __FILE__ ) )
-		&&  file_exists( plugin_dir_path( __FILE__ ) . 'developry-bs4-controls.php' ) )
-		require_once plugin_dir_path( __FILE__ ) . 'developry-bs4-controls.php';
+		&&  file_exists( plugin_dir_path( __FILE__ ) . 'developry-bs4-tinymce-controls.php' ) )
+		require_once plugin_dir_path( __FILE__ ) . 'developry-bs4-tinymce-controls.php';
 
 	/** A map of our shortcodes.
 	 */
 	$developry_shortcodes_tags = array(
 		'alert',
-		'alert-heading',
-		'alert-link',
 		'badge',
 		'blockquote',
 		'button',
-		'display',
+		'column',
+		'one-column',
+		'two-columns',
+		'three-columns',
+		'four-columns',
+		'image',
 		'jumbotron',
-		'heading',
+		'layout',
+		'link',
+		'list',
+		'list-item',
 		'table',
-		'text'
+		'text',
 	);
 
 	/** Bootstrap color scheme words
@@ -47,7 +53,7 @@ Text Domain: developry-bs4-shortcodes
 		'info', 
 		'dark', 
 		'light',
-		'link'
+		'link',
 	);
 
 	/**
@@ -61,7 +67,7 @@ Text Domain: developry-bs4-shortcodes
 		'developry_bs4_shortcodes'
 	);
 
-	function developry_bs4_shortcodes() {
+	function developry_bs4_shortcodes( ) {
 
 		developry_bs4_shortcode_replace();
 
@@ -69,6 +75,9 @@ Text Domain: developry-bs4-shortcodes
 		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/badge.php';
 		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/blockquote.php';
 		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/button.php';
+		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/image.php';
+		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/jumbotron.php';
+		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/layout.php';
 		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/table.php';
 		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/typography.php';
 	}
@@ -99,7 +108,7 @@ Text Domain: developry-bs4-shortcodes
 	 * @since 1.0.0
 	 * @return void
 	 */
-	function developry_bs4_shortcode_replace() {
+	function developry_bs4_shortcode_replace( ) {
 
 		global $developry_shortcodes_tags;
 
@@ -136,7 +145,7 @@ Text Domain: developry-bs4-shortcodes
 	    $block = join( '|', $developry_shortcodes_tags );
 
 	    $content = preg_replace( "/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/", "[$2$3]", $content );
-	    $content = preg_replace( "/(<p>)?\[\/($block)](<\/p>|<br \/>)?/","[/$2]", $content );
+	    $content = preg_replace( "/(<p>)?\[\/($block)](<\/p>|<br \/>)?/", "[/$2]", $content );
 
 		return $content;
 	}
@@ -174,7 +183,7 @@ Text Domain: developry-bs4-shortcodes
      *
      * @since 1.0.0
      * @param $atts array An array returned from shortcode_atts
-     * @return $atts string Return the applicatable values in format [class="one two" data-target="val"]
+     * @return $atts string Return the applicatable values in format [class='class-one class-two' data-target='value']
      */
     function implode_atts( $atts ) {
 

@@ -1,16 +1,10 @@
 <?php
 /**
-	[table color=dark,light size=sm striped bordered hover responsive]...[/table]
+	[table color=dark size=sm striped bordered hover responsive xclass=]...[/table]
 */
-
-	add_shortcode( 
-		'table', 
-		'developry_bs4_table' 
-	);
-	
 	function developry_bs4_table( $atts, $content = null ) {
 
-		if ( empty($atts) ) 
+		if ( empty( $atts ) ) 
 			return '<table class="table">' . do_shortcode( $content ) . '</table>';
 
 		global $color_scheme;
@@ -21,6 +15,7 @@
 		$bordered 	= in_multiarray( 'bordered', $atts ) ? ' table-bordered' : '';
 		$hover 		= in_multiarray( 'hover', $atts ) ? ' table-hover' : '';
 		$responsive = in_multiarray( 'responsive', $atts ) ? ' table-responsive' : '';
+		$xclass     = isset( $atts['xclass'] ) ? ' ' . $atts['xclass'] : '';
 
 		if ( in_array( $color, $color_scheme ) )
 			$color = ' table-' . $color;

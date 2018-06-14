@@ -1,37 +1,29 @@
 <?php
 /**
-	[jumbotron bgcolor=primary textcolor=light fluid]
-		[head size=1]...[/head]
-		[text lead]...[/text]
-		[button color=primary]...[/button]
-	[/jumbotron]
+	[jumbotron bg-color=primary text-color=light fluid xclass=]...[/jumbotron]
 */
-
-	add_shortcode( 
-		'jumbotron', 
-		'developry_bs4_jumbotron' 
-	);
-
 	function developry_bs4_jumbotron( $atts, $content = null ) {
 
-		if ( empty($atts) )
+		// have a default code block without attributes
+		if ( empty( $atts ) )
 			return '<div class="jumbotron">' . do_shortcode( $content ) . '</div>';
 
-		global $color_scheme;
+		global $color_scheme; // bootstrap color words
 
-		$bgcolor   = isset( $atts['bgcolor'] ) ? $atts['bgcolor'] : 'light';
-		$textcolor = isset( $atts['textcolor'] ) ? $atts['textcolor'] : 'primary';
-		$fluid     = in_multiarray( 'fluid', $atts ) ? ' jumbotron-fluid' : '';
+		$bg_color   = isset( $atts['bg-color'] ) ? $atts['bg-color'] : '';
+		$text_color = isset( $atts['text-color'] ) ? $atts['text-color'] : '';
+		$fluid      = in_multiarray( 'fluid', $atts ) ? ' jumbotron-fluid' : '';
+		$xclass   = isset( $atts['xclass'] ) ? ' ' . $atts['xclass'] : '';
 
-		if ( in_array( $bgcolor, $color_scheme ) )
-			$bgcolor = ' bg-' . $bgcolor;
+		if ( in_array( $bg_color, $color_scheme ) )
+			$bg_color = ' bg-' . $bg_color;
 
-		if ( in_array( $textcolor, $color_scheme ) )
-			$textcolor = ' text-' . $textcolor;
+		if ( in_array( $text_color, $color_scheme ) )
+			$text_color = ' text-' . $text_color;
 
 		$jumbotron = shortcode_atts( 
 			array(
-				'class' => 'jumbotron' . $fluid . $bgcolor . $textcolor
+				'class' => 'jumbotron' . $fluid . $bg_color . $text_color . $xclass
 			), $atts
 		);
 
