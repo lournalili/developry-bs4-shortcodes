@@ -16,6 +16,10 @@
 		|| !function_exists( 'remove_shortcode') )
 		return;
 
+	if ( is_dir( plugin_dir_path( __FILE__ ) )
+		&&  file_exists( plugin_dir_path( __FILE__ ) . 'developry-bs4-controls.php' ) )
+		require_once plugin_dir_path( __FILE__ ) . 'developry-bs4-controls.php';
+
 	/** A map of our shortcodes.
 	 */
 	$developry_shortcodes_tags = array(
