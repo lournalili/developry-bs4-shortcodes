@@ -2,15 +2,17 @@
 
 **WORK IN PROGRESS**
 
-**This plugin is not yet ready for use in production.** I'm currently working on a base set of shortcodes that will be used in our Develop(ry) Lite theme. The plan then for the plugin is to be extended and have all Bootstrap 4 shortcodes added and additional ready-to-use components that will speed up the creation of custom pages and adding customized content to posts.
+**This plugin is not yet ready for use in production.** I'm currently working on a base set of shortcodes that will be used in our Develop(ry) Lite theme. The plan then for the plugin is to be extended and have all Bootstrap 4 shortcodes added and additionally have ready-to-use components that will speed up the content creation for custom Posts & Pages.
 
-__I will update this note when I'm ready to release a production-ready version of this plugin, which will be submitted to the WordPress theme repository and can be used for free.__
+**I will update this note when I'm ready to release a production-ready version of this plugin, which will be submitted to the WordPress theme repository and can be used for free.**
+
+Currently there are shortcodes avaialble for alerts, badges, blockquotes, buttons, jumbotron, tables & basic typography.
 
 ## About
 
-A WordPress plugin with set of shortcodes for Bootstrap 4 that are supposed to speed up the post/page creation in our Develop(ry) themes. Additionaly ready-to-use componenets would be added and can saved (exported) for use to any other WordPress theme.
+A WordPress plugin with set of shortcodes for Bootstrap 4 that are supposed to speed up the Post/Page creation in our Develop(ry) themes. Additionaly ready-to-use components would be added and can saved (exported) for use to any other WordPress theme.
 
-__The plugin will be compatible and used by any other WordPress theme.__
+**The plugin will be compatible and used by any other WordPress theme.**
 
 ## License
 
