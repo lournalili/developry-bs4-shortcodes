@@ -1,12 +1,12 @@
 <?php
 /**
-	Plugin Name: Develop(ry) Bootstrap 4 Shortcodes
-	Plugin URL: http://developry.com/developry-bootstrap4-shortcodes
-	Description: A set of Bootstrap 4 shortcodes to speed up the page building process for Develop(ry) themes. The plugin is free and can be incorporated for other themes as well.
-	Version: 1.0.0
-	Author: Krasen Slavov
-	Author URI: http://developry.com/author/krasen
-	Text Domain: developry-bs4-shortcodes
+Plugin Name: Develop(ry) Bootstrap 4 Shortcodes
+Plugin URL: http://developry.com/developry-bootstrap4-shortcodes
+Description: A set of Bootstrap 4 shortcodes to speed up the page building process for Develop(ry) themes. The plugin is free and can be incorporated for other themes as well.
+Version: 1.0.0
+Author: Krasen Slavov
+Author URI: http://developry.com/author/krasen
+Text Domain: developry-bs4-shortcodes
 */
 
 	/** Lets check if have all shortcode functions built-in

@@ -1,20 +1,20 @@
 # Develop(ry) Bootstrap 4 Shortcodes
 
-##**WORK IN PROGRESS**
+**WORK IN PROGRESS**
 
-**This plugin is not yet ready for use in production.** 
+**This WordPress plugin is not yet ready for use in production.** 
 
-I'm currently working on a base set of shortcodes that will be used in our [Develop(ry) Lite](https://github.com/krasenslavov/developry-lite) theme. 
+Currently working on a base set of shortcodes that will be used in our [Develop(ry) Lite](https://github.com/krasenslavov/developry-lite) theme. 
 
-Currently there are shortcodes avaialble for alerts, badges, blockquotes, buttons, jumbotron, tables & basic typography.
+At this time there are shortcodes avaialble for alerts, badges, blockquotes, buttons, jumbotron, tables & basic typography.
 
 ## About
 
-A WordPress plugin with set of shortcodes for Bootstrap 4 that are going to speed up the post/page contet creation in our Develop(ry) themes. 
+A WordPress plugin with set of shortcodes for Bootstrap 4 that are going to speed up the post/page content creation in our Develop(ry) themes. 
 
 Additional information, usage and documentaion would be found on the [Develop(ry) Bootstrap 4 Shortcodes](http://developry.com/developry-bs4-shortcodes) plugin page.
 
-Note: The plugin is compatible and can be used by any other WordPress theme.
+Note: The plugin is compatible and can be used with any other WordPress theme.
 
 ## License
 
