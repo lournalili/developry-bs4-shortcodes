@@ -16,6 +16,27 @@
 */
 	function developry_bs4_link( $atts, $content = null ) {
 
+		// have a default code block without attributes
+		if ( empty( $atts ) ) 
+			return '<p>' . do_shortcode( $content ) . '</p>';
+
+		global $color_scheme; // bootstrap color words
+
+		$text_color = isset( $atts['text-color'] ) ? $atts['text-color'] : '';
+		$href       = isset( $atts['href'] ) ?  $atts['href'] : '#';
+		$xclass     = isset( $atts['xclass'] ) ? ' ' . $atts['xclass'] : '';
+
+		if ( in_array( $text_color, $color_scheme ) )
+			$text_color = ' text-' . $text_color;
+
+		$link = shortcode_atts( 
+			array(
+				'class' =>  $text_color . $xclass,
+				'href'  => $href
+			), $atts
+		);
+
+		return '<a ' . implode_atts( $link ) . '">' . do_shortcode( $content ) . '</a>';
 	}
 /**
 	[text bg-color=primary text-color=light size=[1-6] display=[1-4] align=left,right,center lead heading xclass=]...[/text]
@@ -50,10 +71,10 @@
 		);
 
  		if ( $heading && $size ) // want a heading and size h[1-6] is specified
- 			return '<' . $size . ' class="' . esc_attr( $text['class'] ) . '">' . do_shortcode( $content ) . '</' . $size . '>';
+ 			return '<' . $size . ' ' . implode_atts( $text ) . '">' . do_shortcode( $content ) . '</' . $size . '>';
  		else // otherwise add default size for heading h3
- 			return '<h3 class="' . esc_attr( $text['class'] ) . '">' . do_shortcode( $content ) . '</h3>';
+ 			return '<h3 ' . implode_atts( $text ) . '">' . do_shortcode( $content ) . '</h3>';
 
-		return '<p class="' . esc_attr( $text['class'] ) . '">' . do_shortcode( $content ) . '</p>';
+		return '<p ' . implode_atts( $text ) . '">' . do_shortcode( $content ) . '</p>';
 	}
 

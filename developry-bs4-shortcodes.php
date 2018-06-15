@@ -1,15 +1,19 @@
 <?php
 /**
-	Plugin Name: Develop(ry) Bootstrap 4 Shortcodes
-	Plugin URL: http://developry.com/developry-bootstrap4-shortcodes
-	Description: A set of Bootstrap 4 shortcodes to speed up the page building process for Develop(ry) themes. The plugin is free and can be incorporated for other themes as well.
-	Version: 1.0.0
-	Author: Krasen Slavov
-	Author URI: http://developry.com/author/krasen
-	Text Domain: developry-bs4-shortcodes
+ 	Plugin Name:  Develop(ry) Bootstrap 4 Shortcodes
+	Plugin URL:   http://developry.com/developry-bootstrap4-shortcodes
+	Description: A set of Bootstrap 4 shortcodes to speed up the page 
+	building process for Develop(ry) themes. The plugin is free and can 
+	be incorporated for other themes as well.
+	Version: 	  1.0.0
+	Author: 	  Krasen Slavov
+	Author 		  URI: http://developry.com/author/krasen
+	License:      The MIT License
+	License URI:  https://opensource.org/licenses/MIT
+	Text Domain:  developry-bs4-shortcodes
 */
 
-	/** Lets check if have all shortcode functions we need built-in
+	/** Check if the WordPress version has built-in shortcode functions that we need 
 	 */
 	if ( !function_exists( 'shortcode_atts' ) 
 		|| !function_exists( 'add_shortcode') 
@@ -20,7 +24,7 @@
 		&&  file_exists( plugin_dir_path( __FILE__ ) . 'developry-bs4-tinymce-controls.php' ) )
 		require_once plugin_dir_path( __FILE__ ) . 'developry-bs4-tinymce-controls.php';
 
-	/** A map of our shortcodes.
+	/** A map with shortcodes.
 	 */
 	$developry_shortcodes_tags = array(
 		'alert',
