@@ -6,7 +6,7 @@
 */
 	function developry_bs4_list( $atts, $content = null ) {
 
-	}
+	}	
 
 	function developry_bs4_list_item( $atts, $content = null ) {
 

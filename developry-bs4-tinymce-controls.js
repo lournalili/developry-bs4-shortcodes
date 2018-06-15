@@ -30,10 +30,10 @@ jQuery( document ).ready( function( $ ) {
 			// ALERT
 			editor.addCommand('alert', function( ) {
 				editor.windowManager.open( {
-					title    : 'Develop(ry) Elements > Alert',
+					title    : 'Develop(ry) Shortcodes > Elements > Alert',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[alert]...[/alert]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Alert', value : 'alert' } ] },
 						{ label : 'Color', type  : 'listbox', name  : 'color', 
 							values: [ 
@@ -62,7 +62,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Badge',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[badge]...[/badge]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Badge', value : 'badge' } ] },
 						{ label : 'Color', type  : 'listbox', name  : 'color', 
 							values: [ 
@@ -92,7 +92,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Blockquote',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[blockquote]...[/blockquote]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Blockquote', value : 'blockquote' } ] },
 						{ label : 'Background Color', type  : 'listbox', name  : 'bg-color', 
 							values: [ 
@@ -131,7 +131,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Button',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[button]...[/button]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Button', value : 'button' } ] },
 						{ label : 'Color', type  : 'listbox', name  : 'color', 
 							values: [ 
@@ -187,7 +187,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Image',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[image /]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Image', value : 'image' } ] },
 						{ label : 'URL', type  : 'textbox',  name  : 'src', value : '' },
 						{ label : 'Alt (alternative) text', type  : 'textbox',  name  : 'alt', value : '' },
@@ -228,7 +228,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Jumbotron',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[jumbotron]...[/jumbotron]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Jumbotron', value : 'jumbotron' } ] },
 						{ label : 'Background Color', type  : 'listbox', name  : 'bg-color', 
 							values: [ 
@@ -264,7 +264,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Table',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[table]...[/table]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Table', value : 'table' } ] },
 						{ label : 'Table background color', type  : 'listbox', name  : 'color', 
 							values: [ 
@@ -316,7 +316,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Link',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[link]...[/link]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Link', value : 'link' } ] },
 						{ label : 'Text color', type  : 'listbox', name  : 'text-color', 
 							values: [ 
@@ -340,7 +340,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > Text',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[text]...[/text]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Text', value : 'text' } ] },
 						{ label : 'Background color', type  : 'listbox', name  : 'bg-color', 
 							values: [ 
@@ -404,7 +404,7 @@ jQuery( document ).ready( function( $ ) {
 					title    : 'Develop(ry) Elements > List',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[list][list-item]...[/list-item]...[/list]</b> shortcode with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'List', value : 'list' } ] },
 						{ label : 'List type', type  : 'listbox', name  : 'type', 
 							values: [ 
@@ -477,32 +477,24 @@ jQuery( document ).ready( function( $ ) {
 			// ONE COLUMN LAYOUT
 			editor.addCommand('one_column', function( ) {
 				editor.windowManager.open( {
-					title    : 'Develop(ry) Blocks > Layout > One Column',
+					title    : 'Develop(ry) Shortcodes > Blocks > Layout > One Column',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
-						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'One Column', value : 'one_column' } ] },
-						{ label : 'What is the layout column width width?', type  : 'listbox', name  : 'width', 
-							values: [ 
-								{ text  : 'unset', value : '' },
-								{ text  : 'equal', value : 'equal' },
-								{ text  : 'single column expanded', value : 'col'},
-								{ text  : 'variable', value : 'variable' }
-							]
-						},
+						{ label : '', type  : 'container', html  : 'Adding <b>[one-colum][column]...[/column][/one-colum]</b> shortcode block with parameters.' },
+						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'One Column', value : 'one-column' } ] },
 						{ label : 'What is the layout column vertical alignment?', type  : 'listbox', name  : 'valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
 						{ label : 'What is the layout column horizontal alignment?', type  : 'listbox', name  : 'halign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'left', value : 'left' },
-								{ text  : 'right', value : 'right'},
+								{ text  : 'left', value : 'start' },
+								{ text  : 'right', value : 'end'},
 								{ text  : 'center', value : 'center' },
 								{ text  : 'around', value : 'around' },
 								{ text  : 'between', value : 'between' }
@@ -536,11 +528,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_1_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_1_xclass', value : '' }
 					],
 					onsubmit: function( event ) {
@@ -551,32 +544,24 @@ jQuery( document ).ready( function( $ ) {
 			// TWO COLUMN LAYOUT
 			editor.addCommand('two_columns', function( ) {
 				editor.windowManager.open( {
-					title    : 'Develop(ry) Blocks > Layout > Two Columns',
+					title    : 'Develop(ry) Shortcodes > Blocks > Layout > Two Columns',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[two-colums][column]...[/column][column]...[/column][/two-colum]</b> shortcode block with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Two Columns', value : 'two-columns' } ] },
-						{ label : 'What is the layout column width width?', type  : 'listbox', name  : 'width', 
-							values: [ 
-								{ text  : 'unset', value : '' },
-								{ text  : 'equal', value : 'equal' },
-								{ text  : 'single column expanded', value : 'col'},
-								{ text  : 'variable', value : 'variable' }
-							]
-						},
 						{ label : 'What is the layout column vertical alignment?', type  : 'listbox', name  : 'valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
 						{ label : 'What is the layout column horizontal alignment?', type  : 'listbox', name  : 'halign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'left', value : 'left' },
-								{ text  : 'right', value : 'right'},
+								{ text  : 'left', value : 'start' },
+								{ text  : 'right', value : 'end'},
 								{ text  : 'center', value : 'center' },
 								{ text  : 'around', value : 'around' },
 								{ text  : 'between', value : 'between' }
@@ -607,14 +592,15 @@ jQuery( document ).ready( function( $ ) {
 								{ text  : 'center', value : 'center' }
 							]
 						},
-												{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_1_valign', 
+						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_1_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_1_xclass', value : '' },
 						// 2nd
 						{ label : '', type  : 'container', html  : '<b>BUILD YOUR LAYOUT 2ND COLUMN BELOW:</b>' },
@@ -637,11 +623,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_2_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : 'xclass', value : '' },
 					],
 					onsubmit: function( event ) {
@@ -652,32 +639,24 @@ jQuery( document ).ready( function( $ ) {
 			// THREE COLUMN LAYOUT
 			editor.addCommand('three_columns', function( ) {
 				editor.windowManager.open( {
-					title    : 'Develop(ry) Blocks > Layout > Three Columns',
+					title    : 'Develop(ry) Shortcodes > Blocks > Layout > Three Columns',
 					minWidth :  640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[three-colums][column]...[/column][column]...[/column][column]...[/column][/three-colum]</b> shortcode block with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Three Columns', value : 'three-columns' } ] },
-						{ label : 'What is the layout column width width?', type  : 'listbox', name  : 'width', 
-							values: [ 
-								{ text  : 'unset', value : '' },
-								{ text  : 'equal', value : 'equal' },
-								{ text  : 'single column expanded', value : 'col'},
-								{ text  : 'variable', value : 'variable' }
-							]
-						},
 						{ label : 'What is the layout column vertical alignment?', type  : 'listbox', name  : 'valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
 						{ label : 'What is the layout column horizontal alignment?', type  : 'listbox', name  : 'halign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'left', value : 'left' },
-								{ text  : 'right', value : 'right'},
+								{ text  : 'left', value : 'start' },
+								{ text  : 'right', value : 'end'},
 								{ text  : 'center', value : 'center' },
 								{ text  : 'around', value : 'around' },
 								{ text  : 'between', value : 'between' }
@@ -711,11 +690,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_1_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_1_xclass', value : '' },
 						// 2nd
 						{ label : '', type  : 'container', html  : '<b>BUILD YOUR LAYOUT 2ND COLUMN BELOW:</b>' },
@@ -738,11 +718,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_2_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_2_xclass', value : '' },
 						// 3rd
 						{ label : '', type  : 'container', html  : '<b>BUILD YOUR LAYOUT 3rd COLUMN BELOW:</b>' },
@@ -765,11 +746,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_3_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_3_xclass', value : '' },
 					],
 					onsubmit: function( event ) {
@@ -780,34 +762,24 @@ jQuery( document ).ready( function( $ ) {
 			// FOUR COLUMN LAYOUT	
 			editor.addCommand('four_columns', function( ) {
 				editor.windowManager.open( {
-					title    : 'Develop(ry) Blocks > Layout > Four Columns',
-					width: 320,
-					height : 540,
-					autoScroll: true,
+					title    : 'Develop(ry) Shortcodes > Blocks > Layout > Four Columns',
+					minWidth: 640,
 					body     : [
-						{ label : '', type  : 'container', html  : '' },
+						{ label : '', type  : 'container', html  : 'Adding <b>[four-colums][column]...[/column][column]...[/column][column]...[/column][column]...[/column][/four-colum]</b> shortcode block with parameters.' },
 						{ label : 'Shortcode', type  : 'listbox', name  : 'shortcode', values: [ { text  : 'Four Columns', value : 'four-columns' } ] },
-						{ label : 'What is the layout column width width?', type  : 'listbox', name  : 'width', 
-							values: [ 
-								{ text  : 'unset', value : '' },
-								{ text  : 'equal', value : 'equal' },
-								{ text  : 'single column expanded', value : 'col'},
-								{ text  : 'variable', value : 'variable' }
-							]
-						},
 						{ label : 'What is the layout column vertical alignment?', type  : 'listbox', name  : 'valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
 						{ label : 'What is the layout column horizontal alignment?', type  : 'listbox', name  : 'halign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'left', value : 'left' },
-								{ text  : 'right', value : 'right'},
+								{ text  : 'left', value : 'start' },
+								{ text  : 'right', value : 'end'},
 								{ text  : 'center', value : 'center' },
 								{ text  : 'around', value : 'around' },
 								{ text  : 'between', value : 'between' }
@@ -841,11 +813,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_1_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_1_xclass', value : '' },
 						// 2nd
 						{ label : '', type  : 'container', html  : '<b>BUILD YOUR LAYOUT 2ND COLUMN BELOW:</b>' },
@@ -868,14 +841,14 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_2_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_2_xclass', value : '' },
 						// 3rd
-						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : 'xclass', value : '' },
 						{ label : '', type  : 'container', html  : '<b>BUILD YOUR LAYOUT 3rd COLUMN BELOW:</b>' },
 						{ label : 'Column grid size', type  : 'listbox', name  : '_column_3_grid', 
 							values: [ 
@@ -896,11 +869,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_3_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_3_xclass', value : '' },
 						{ label : '', type  : 'container', html  : '<b>BUILD YOUR LAYOUT 4th COLUMN BELOW:</b>' },
 						{ label : 'Column grid size', type  : 'listbox', name  : '_column_4_grid', 
@@ -922,11 +896,12 @@ jQuery( document ).ready( function( $ ) {
 						{ label : 'What is the column vertical position?', type  : 'listbox', name  : '_column_4_valign', 
 							values: [ 
 								{ text  : 'unset', value : '' },
-								{ text  : 'top', value : 'top' },
-								{ text  : 'middle', value : 'middle'},
-								{ text  : 'bottom', value : 'bottom' }
+								{ text  : 'top', value : 'start' },
+								{ text  : 'middle', value : 'center'},
+								{ text  : 'bottom', value : 'end' }
 							]
 						},
+						{ label : 'Content', type  : 'textbox',  name  : 'content', value : '', multiline : true },
 						{ label : 'Additional classes (separate by space)', type  : 'textbox', name  : '_column_4_xclass', value : '' },
 					],
 					onsubmit: function( event ) {

@@ -38,7 +38,6 @@
 		'four-columns',
 		'image',
 		'jumbotron',
-		'layout',
 		'link',
 		'list',
 		'list-item',
