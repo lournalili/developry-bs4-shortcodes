@@ -435,6 +435,12 @@ jQuery( document ).ready( function( $ ) {
 								{ text  : 'yes', value : 'nav'}
 							]
 						},
+						{ label : 'Is this list flushed?', type  : 'listbox', name  : 'flush', 
+							values: [
+								{ text  : 'no', value : '' },
+								{ text  : 'yes', value : 'flush'}
+							]
+						},
 						{ label : 'How many items are in the list?', type  : 'listbox', name  : 'items', 
 							values: [
 								{ text  : '0', value : '' },
