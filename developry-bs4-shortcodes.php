@@ -1,196 +1,202 @@
 <?php
 /**
  	Plugin Name:  Develop(ry) Bootstrap 4 Shortcodes
-	Plugin URL:   http://developry.com/developry-bootstrap4-shortcodes
-	Description: A set of Bootstrap 4 shortcodes to speed up the page 
-	building process for Develop(ry) themes. The plugin is free and can 
-	be incorporated for other themes as well.
-	Version: 	  1.0.0
+	Plugin URL:   http://developry.com/developry-bootstrap-4-shortcodes
+	Description:  A WordPress plugin with set of shortcodes for Bootstrap 4.
+	Version:      1.0.0
 	Author: 	  Krasen Slavov
-	Author 		  URI: http://developry.com/author/krasen
-	License:      The MIT License
-	License URI:  https://opensource.org/licenses/MIT
+	Author URI:   http://developry.com/author/krasen
+	License:      GNU General Public License, version 2
+	License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 	Text Domain:  developry-bs4-shortcodes
+	GitHub Plugin URI: https://github.com/krasenslavov/developry-bs4-shortcodes
 */
 
-	/** Check if the WordPress version has built-in shortcode functions that we need 
-	 */
-	if ( !function_exists( 'shortcode_atts' ) 
-		|| !function_exists( 'add_shortcode') 
-		|| !function_exists( 'remove_shortcode') )
-		return;
+// See if WP have support for all shortcode functions we will need in our plugin.
+if ( ! function_exists( 'shortcode_atts' ) 
+	|| ! function_exists( 'add_shortcode') 
+	|| ! function_exists( 'remove_shortcode')
+	|| ! function_exists( 'do_shortcode') ) {
 
-	if ( is_dir( plugin_dir_path( __FILE__ ) )
-		&&  file_exists( plugin_dir_path( __FILE__ ) . 'developry-bs4-tinymce-controls.php' ) )
-		require_once plugin_dir_path( __FILE__ ) . 'developry-bs4-tinymce-controls.php';
+	return;
+}
 
-	/** A map with shortcodes.
-	 */
-	$developry_shortcodes_tags = array(
+// Initialize.
+$devry = new Developry_BS4_Shortcodes;
+$devry->init();
+
+// Our main plugin class used to load the classes, functions and assets needed.
+class Developry_BS4_Shortcodes {
+
+	// Plugin root directory set by the constuctor.
+	private $plugin_dir;
+
+	// Admin classes to be loaded with our plugin in /admin.
+	private $classes = array(
+		'developry-bs4-admin'  => 'Developry_BS4_Admin',
+		'developry-bs4-editor' => 'Developry_BS4_Editor',
+	);
+
+	// Files with shortcode functions in /shortcodes.
+	private $components = array(
 		'alert',
-		'badge',
-		'blockquote',
 		'button',
-		'column',
-		'one-column',
-		'two-columns',
-		'three-columns',
-		'four-columns',
-		'image',
-		'jumbotron',
-		'link',
-		'list',
-		'list-item',
-		'table',
-		'text',
+		// 'gallery',
 	);
 
-	/** Bootstrap color scheme words
-	 */
-	$color_scheme = array(
-		'primary', 
-		'secondary', 
-		'success',
-		'danger', 
-		'warning', 
-		'info', 
-		'dark', 
-		'light',
-		'link',
+	// All available shortcode keywords.
+	private $shortcodes = array(
+		'alert',
+		'button',
+		// 'gallery',
 	);
 
-	/**
-	 * Develop(ry) Bootstrap 4 Shortcodes Init
-	 *
-	 * @since 1.0.0
-	 * @return bool
-	 */
-	add_action(
-		'plugins_loaded',
-		'developry_bs4_shortcodes'
-	);
+	// Contructor.
+	public function __construct() {
 
-	function developry_bs4_shortcodes( ) {
-
-		developry_bs4_shortcode_replace();
-
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/alert.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/badge.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/blockquote.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/button.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/image.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/jumbotron.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/layout.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/table.php';
-		require_once plugin_dir_path( __FILE__ ) . 'shortcodes/typography.php';
+		$this->plugin_dir = plugin_dir_path( __FILE__ );
 	}
 
-	/**
-	 * Check if a shortcode is already registered
-	 *
-	 * @since 1.0.0
-	 * @param $shortcode string The shortcode slug to test
-	 * @return bool
-	 */
-	function developry_bs4_shortcode_exists( $shortcode = false ) {
+	// Load all admin classes and files with shortcode functions.
+	public function init() {
 
-		global $shortcode_tags;
+		if ( $this->plugin_dir ) {
 
-		if ( !$shortcode )
-			return false;
+			foreach ( $this->classes as $class_filename => $class_name ) {
 
-		if ( array_key_exists( $shortcode, $shortcode_tags ) )
-			return true;
+				if ( file_exists( $this->plugin_dir . '/admin/' . $class_filename . '.php' ) ) {
 
-		return false;
+					require_once $this->plugin_dir . '/admin/' . $class_filename . '.php';
+
+					// Initialize.
+					$devry = new $class_name;
+					$devry->init();
+				}
+			}
+		}
+
+		add_action(
+			'plugins_loaded',
+			array(
+				$this,
+				'shortcode_loader',
+			)
+		);
 	}
 
-	/**
-	 * Check if a shortcodes is already registered (by another theme or plugin) and replace it
-	 *
-	 * @since 1.0.0
-	 * @return void
-	 */
-	function developry_bs4_shortcode_replace( ) {
+	// Load all available & existing files with shortcode functions.
+	public function shortcode_loader() {
 
-		global $developry_shortcodes_tags;
+		$this->shortcode_replace();
 
-		foreach ($developry_shortcodes_tags as $shortcode) {
+		foreach ($this->components as $component) {
 
-			if ( developry_bs4_shortcode_exists( $shortcode ) ) {
+			if ( $this->plugin_dir 
+				&& file_exists( $this->plugin_dir . '/shortcodes/' . $component . '.php' ) ) {
 
-				remove_shortcode( $shortcode );
-				add_shortcode( $shortcode, 'developry_bs4_' . str_replace( '-', '_', $shortcode ) ) ;
-
-			} else {
-
-				add_shortcode( $shortcode, 'developry_bs4_' . str_replace( '-', '_', $shortcode ) );
+				require_once  $this->plugin_dir . '/shortcodes/' . $component . '.php';
 			}
 		}
 	}
 
-	/**
-	 * Add shortcode filter which will help to remove the extra <p> and <br /> after our tags
-	 *
-	 * @since 1.0.0
-	 * @param $content string The intial content from the editor with <p> and <br /> tags
-	 * @return $content string Get the content string and remove the extra <p> and <br /> tags    
-	 */
-	add_filter(
-		'the_content', 
-		'developry_bs4_shortcode_content_filter'
-	);
+	// Replace existing shortcodes that may conflict with our plugin.
+	public function shortcode_replace() {
 
-	function developry_bs4_shortcode_content_filter( $content ) {
+		foreach ($this->shortcodes as $shortcode) {
 
-		global $developry_shortcodes_tags;
+			if ( $this->shortcode_exists( $shortcode ) ) {
 
-	    $block = join( '|', $developry_shortcodes_tags );
+				// E.g. add 'gallery' to $shortcodes & $components then 
+				// the WP default shortcode [gallery] will be removed 
+				// and not processed on the front-end in WP_DEBUG mode
+				// (Notice: do_shortcode_tag was called incorrectly.).
+				// Then we need to add our own version of the shortcode 
+				// under /shortcodes/gallery.php with function 
+				// named developry_bs4_shortcode_gallery()
+				remove_shortcode( $shortcode );
 
-	    $content = preg_replace( "/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/", "[$2$3]", $content );
-	    $content = preg_replace( "/(<p>)?\[\/($block)](<\/p>|<br \/>)?/", "[/$2]", $content );
+				add_shortcode( 
+					$shortcode, 
+					'developry_bs4_shortcode_' . str_replace( '-', '_', $shortcode ) 
+				) ;
 
-		return $content;
+			} else {
+
+				add_shortcode( 
+					$shortcode, 
+					'developry_bs4_shortcode_' . str_replace( '-', '_', $shortcode ) 
+				);
+			}
+		}
 	}
 
-	/**
-	 * Helper function which is used to check if a value exists in multidimentional array; same as in_array() but for multi arr
-	 *
-	 * @since 1.0.0
-	 * @param $elem string A value to check  
-	 * @param $array array Multidimentional array
-	 * @return bool   
-	 */
-	function in_multiarray( $elem, $array ) {
+	// Check if existing & registered shortcode has the same shortcode keyword as ours.
+	public function shortcode_exists( $shortcode ) {
 
-        while ( current( $array ) !== false ) {
+		if ( ! $shortcode ) {
+
+			return false;
+		}
+
+		if ( array_key_exists( $shortcode, $this->shortcodes ) ) {
+
+			return true;
+		}
+
+		return false;
+	}
+}
+
+// Helper functions used to convert our shortcodes in /shortcodes into HTML.
+final class Developry_BS4_Helpers {
+
+	// Set the attribute value(s); for numeric atts name can be boolean.
+	//
+	// [named]   >>> primary, alert-primary 	
+	// [numeric] >>> 1/0, alert-dismissible fade show 
+	//
+	public static function set( $name, $val ) {
+
+		if ( ! $name ) {
+			return '';
+		}
+
+		return ' ' . $val;
+	}
+
+	// Check if an attribute value exists in multi array as a value.
+	//
+	// Array ( [color] => primary [0] => dismissible [xclass] => m-5 )
+	//                                   ^^^^^^^^^^^
+	public static function in_multiarr( $att, $atts ) {
+
+		while ( current( $atts ) !== false ) {
 	    
-	        if ( current( $array ) == $elem ) {
+	        if ( current( $atts ) === $att ) {
 	    
 	            return true;
 	    
-	        } elseif ( is_array( current( $array ) ) ) {
+	        } elseif ( is_array( current( $atts ) ) ) {
 	    
-	            if ( in_multiarray( $elem, current( $array ) ) ) {
+	            if ( in_multiarr( $att, current( $atts ) ) ) {
 	    
 	                return true;
 	            }
 	        }
-	        next( $array );
+	        next( $atts );
 	    } 
         return false;
-    }
+	}
 
-    /**
-     * Helper function which will map and merge 'shortcode_atts' data into a string; skips empty fields 
-     *
-     * @since 1.0.0
-     * @param $atts array An array returned from shortcode_atts
-     * @return $atts string Return the applicatable values in format [class='class-one class-two' data-target='value']
-     */
-    function implode_atts( $atts ) {
+	// Convert a multi array into a string, used to build HTML tag attributes.
+	//
+	// Array ( [class] => alert alert-primary alert-dismissible fade show m-5 [role] => alert )
+    // ...
+    // class="alert alert-primary alert-dismissible fade show m-5" role="alert"
+    //
+	public static function implode_atts( $atts ) {
 
-    	return implode( ' ', 
+		return implode( ' ', 
     		array_map(
 			    function ( $val, $key ) {
 			
@@ -206,7 +212,8 @@
 			        }
 			    }, 
 			    $atts, 
-			    array_keys($atts)
+			    array_keys( $atts )
 			) 
     	);
-    }
+	}
+}
