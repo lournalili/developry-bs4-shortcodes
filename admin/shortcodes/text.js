@@ -1,9 +1,9 @@
 /**
  * [shortcode attrs]...[/shortcode]
- * [button color= outline= size= active=active disabled=disabled fluid= xclass=]content[/button]
+ * [text bg= text= align= size= display= lead=lead heading=heading xclass=]content[/text]
  */
-var developry_bs4_shortcode_button = [
-	{ 
+var developry_bs4_shortcode_text = [
+{ 
 		label     : 'Content', 
 		type      : 'textbox',  
 		name      : 'content', 
@@ -12,15 +12,9 @@ var developry_bs4_shortcode_button = [
 		rows      : 8,
 	},
 	{ 
-		label : 'Local or external link URL', 
-		type  : 'textbox',  
-		name  : 'href', 
-		value : '', 
-	},
-	{ 
-		label : 'Button color', 
+		label : 'Background color', 
 		type  : 'listbox', 
-		name  : 'color', 
+		name  : 'bg', 
 		values: [ 
 			{ 
 				text  : 'unset', 
@@ -51,27 +45,27 @@ var developry_bs4_shortcode_button = [
 				value : 'info',
 			},
 			{ 
-				text  : 'warning', 
-				value : 'warning',
-			},
-			{ 
 				text  : 'success', 
 				value : 'success',
+			},
+			{ 
+				text  : 'warning', 
+				value : 'warning',
 			},
 		],
 	},
 	{ 
-		label : 'Button outline border color', 
+		label : 'Text color', 
 		type  : 'listbox', 
-		name  : 'outline', 
+		name  : 'text', 
 		values: [ 
 			{ 
 				text  : 'unset', 
-				value : '', 
+				value : '',
 			},
 			{ 
 				text  : 'primary', 
-				value : 'primary', 
+				value : 'primary' ,
 			},
 			{ 
 				text  : 'secondary', 
@@ -94,76 +88,130 @@ var developry_bs4_shortcode_button = [
 				value : 'info',
 			},
 			{ 
-				text  : 'warning', 
-				value : 'warning',
-			},
-			{ 
 				text  : 'success', 
 				value : 'success',
 			},
+			{ 
+				text  : 'warning', 
+				value : 'warning',
+			},
 		],
 	},
 	{ 
-		label : 'Button size', 
+		label : 'Text alignment', 
 		type  : 'listbox', 
-		name  : 'size', 
+		name  : 'align', 
 		values: [ 
 			{ 
-				text  : 'normal', 
+				text  : 'unset', 
 				value : '', 
 			},
 			{ 
-				text  : 'smaller', 
-				value : 'sm',
+				text  : 'left', 
+				value : 'left', 
 			},
 			{ 
-				text  : 'larger', 
-				value : 'lg',
+				text  : 'right', 
+				value : 'right', 
+			},
+			{ 
+				text  : 'center', 
+				value : 'center', 
 			},
 		],
 	},
 	{ 
-		label : 'Is it active?', 
+		label : 'Text size', 
 		type  : 'listbox', 
-		name  : 'active', 
-		values: [
+		name  : 'size', 
+		values: 
+		[ 
 			{ 
-				text  : 'no', 
-				value : '', 
+				text  : 'unset', 
+				value : '' 
 			},
 			{ 
-				text  : 'yes', 
-				value : 'active',
+				text  : 'heading 1', 
+				value : 'h1' 
+			},
+			{ 
+				text  : 'heading 2', 
+				value : 'h2' 
+			},
+			{ 
+				text  : 'heading 3', 
+				value : 'h3' 
+			},
+			{ 
+				text  : 'heading 4', 
+				value : 'h4' 
+			},
+			{ 
+				text  : 'heading 5', 
+				value : 'h5' 
+			},
+			{ 
+				text  : 'heading 6', 
+				value : 'h6' 
 			},
 		],
 	},
 	{ 
-		label : 'Is it disabled?', 
+		label : 'Text display size', 
 		type  : 'listbox', 
-		name  : 'disabled', 
-		values: [
+		name  : 'display', 
+		values: [ 
 			{ 
-				text  : 'no', 
-				value : '', 
+				text  : 'unset', 
+				value : '' 
 			},
 			{ 
-				text  : 'yes', 
-				value : 'disabled',
+				text  : 'display 1', 
+				value : 'display-1' 
 			},
-		]
+			{ 
+				text  : 'display 2', 
+				value : 'display-2' 
+			},
+			{ 
+				text  : 'display 3', 
+				value : 'display-3' 
+			},
+			{ 
+				text  : 'display 4', 
+				value : 'display-4' 
+			},
+		],
 	},
 	{ 
-		label : 'Is it fluid?', 
+		label : 'Is it lead?', 
 		type  : 'listbox', 
-		name  : 'fluid', 
-		values: [
+		name  : 'lead', 
+		values: 
+		[
 			{ 
 				text  : 'no', 
-				value : '', 
+				value : '' 
 			},
 			{ 
 				text  : 'yes', 
-				value : 'block',
+				value : 'lead'
+			},
+		],
+	},
+	{ 
+		label : 'Is it heading?', 
+		type  : 'listbox', 
+		name  : 'heading', 
+		values: 
+		[
+			{ 
+				text  : 'no', 
+				value : '' 
+			},
+			{ 
+				text  : 'yes', 
+				value : 'heading'
 			},
 		],
 	},
@@ -179,8 +227,8 @@ var developry_bs4_shortcode_button = [
 		name  : 'shortcode', 
 		values: [ 
 			{ 
-				text  : 'button', 
-				value : 'button', 
+				text  : 'text', 
+				value : 'text', 
 			}, 
 		], 
 	},

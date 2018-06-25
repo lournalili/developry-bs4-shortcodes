@@ -1,8 +1,8 @@
 /**
  * [shortcode attrs]...[/shortcode]
- * [alert color= dismissable= dismissable xclass=]content[/alert]
+ * [list-item bg= href= format= active=active xclass=]content[/list-item]
  */
-var developry_bs4_shortcode_alert = [
+var developry_bs4_shortcode_list_item = [
 	{ 
 		label     : 'Content', 
 		type      : 'textbox',  
@@ -12,9 +12,15 @@ var developry_bs4_shortcode_alert = [
 		rows      : 8,
 	},
 	{ 
-		label : 'Alert color', 
+		label : 'Local or external link URL', 
+		type  : 'textbox',  
+		name  : 'href', 
+		value : '', 
+	},
+	{ 
+		label : 'Background color', 
 		type  : 'listbox', 
-		name  : 'color', 
+		name  : 'bg', 
 		values: [ 
 			{ 
 				text  : 'unset', 
@@ -55,9 +61,28 @@ var developry_bs4_shortcode_alert = [
 		],
 	},
 	{ 
-		label : 'Is it dismissable?', 
+		label : 'List format', 
 		type  : 'listbox', 
-		name  : 'dismissable', 
+		name  : 'format', 
+		values: [ 
+			{ 
+				text  : 'unset', 
+				value : '',
+			},
+			{ 
+				text  : 'inlined', 
+				value : 'inline', 
+			},
+			{ 
+				text  : 'grouped', 
+				value : 'group',
+			},
+		],
+	},
+	{ 
+		label : 'Is it active?', 
+		type  : 'listbox', 
+		name  : 'active', 
 		values: 
 		[
 			{ 
@@ -66,7 +91,7 @@ var developry_bs4_shortcode_alert = [
 			},
 			{ 
 				text  : 'yes', 
-				value : 'dismissable',
+				value : 'active',
 			},
 		],
 	},
@@ -82,9 +107,9 @@ var developry_bs4_shortcode_alert = [
 		name  : 'shortcode', 
 		values: [ 
 			{ 
-				text  : 'alert', 
-				value : 'alert',
-			},
-		],
+				text  : 'list-item', 
+				value : 'list-item', 
+			}, 
+		], 
 	},
 ];

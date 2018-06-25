@@ -1,9 +1,9 @@
 /**
  * [shortcode attrs]...[/shortcode]
- * [button color= outline= size= active=active disabled=disabled fluid= xclass=]content[/button]
+ * [blockquote bg= text= align= source= xclass=]content[/blockquote]
  */
-var developry_bs4_shortcode_button = [
-	{ 
+var developry_bs4_shortcode_blockquote = [
+{ 
 		label     : 'Content', 
 		type      : 'textbox',  
 		name      : 'content', 
@@ -12,15 +12,15 @@ var developry_bs4_shortcode_button = [
 		rows      : 8,
 	},
 	{ 
-		label : 'Local or external link URL', 
+		label : 'What is the source?', 
 		type  : 'textbox',  
-		name  : 'href', 
+		name  : 'source', 
 		value : '', 
 	},
 	{ 
-		label : 'Button color', 
+		label : 'Background color', 
 		type  : 'listbox', 
-		name  : 'color', 
+		name  : 'bg', 
 		values: [ 
 			{ 
 				text  : 'unset', 
@@ -51,27 +51,27 @@ var developry_bs4_shortcode_button = [
 				value : 'info',
 			},
 			{ 
-				text  : 'warning', 
-				value : 'warning',
-			},
-			{ 
 				text  : 'success', 
 				value : 'success',
+			},
+			{ 
+				text  : 'warning', 
+				value : 'warning',
 			},
 		],
 	},
 	{ 
-		label : 'Button outline border color', 
+		label : 'Text color', 
 		type  : 'listbox', 
-		name  : 'outline', 
+		name  : 'text', 
 		values: [ 
 			{ 
 				text  : 'unset', 
-				value : '', 
+				value : '',
 			},
 			{ 
 				text  : 'primary', 
-				value : 'primary', 
+				value : 'primary' ,
 			},
 			{ 
 				text  : 'secondary', 
@@ -94,76 +94,35 @@ var developry_bs4_shortcode_button = [
 				value : 'info',
 			},
 			{ 
-				text  : 'warning', 
-				value : 'warning',
-			},
-			{ 
 				text  : 'success', 
 				value : 'success',
 			},
+			{ 
+				text  : 'warning', 
+				value : 'warning',
+			},
 		],
 	},
 	{ 
-		label : 'Button size', 
+		label : 'Text alignment', 
 		type  : 'listbox', 
-		name  : 'size', 
+		name  : 'align', 
 		values: [ 
 			{ 
-				text  : 'normal', 
+				text  : 'unset', 
 				value : '', 
 			},
 			{ 
-				text  : 'smaller', 
-				value : 'sm',
+				text  : 'left', 
+				value : 'left', 
 			},
 			{ 
-				text  : 'larger', 
-				value : 'lg',
-			},
-		],
-	},
-	{ 
-		label : 'Is it active?', 
-		type  : 'listbox', 
-		name  : 'active', 
-		values: [
-			{ 
-				text  : 'no', 
-				value : '', 
+				text  : 'right', 
+				value : 'right', 
 			},
 			{ 
-				text  : 'yes', 
-				value : 'active',
-			},
-		],
-	},
-	{ 
-		label : 'Is it disabled?', 
-		type  : 'listbox', 
-		name  : 'disabled', 
-		values: [
-			{ 
-				text  : 'no', 
-				value : '', 
-			},
-			{ 
-				text  : 'yes', 
-				value : 'disabled',
-			},
-		]
-	},
-	{ 
-		label : 'Is it fluid?', 
-		type  : 'listbox', 
-		name  : 'fluid', 
-		values: [
-			{ 
-				text  : 'no', 
-				value : '', 
-			},
-			{ 
-				text  : 'yes', 
-				value : 'block',
+				text  : 'center', 
+				value : 'center', 
 			},
 		],
 	},
@@ -179,8 +138,8 @@ var developry_bs4_shortcode_button = [
 		name  : 'shortcode', 
 		values: [ 
 			{ 
-				text  : 'button', 
-				value : 'button', 
+				text  : 'blockquote', 
+				value : 'blockquote', 
 			}, 
 		], 
 	},

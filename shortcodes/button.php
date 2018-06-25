@@ -1,8 +1,12 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Process the [button][/button] shortcode.
 //
-// e.g. [button color= outline= href= size= active=active disabled=disabled block=block xclass=]...[/alert]
+// e.g. [button color= outline= size= active=active disabled=disabled fluid= xclass=]content[/button]
 //
 function developry_bs4_shortcode_button( $atts, $content = null ) {
 
@@ -22,7 +26,7 @@ function developry_bs4_shortcode_button( $atts, $content = null ) {
 		: '';
 
 	$atts['size'] = isset( $atts['size'] ) 
-		? Developry_BS4_Helpers::set( 'size', 'btn-' . $atts['outline'] ) 
+		? Developry_BS4_Helpers::set( 'size', 'btn-' . $atts['size'] ) 
 		: '';
 
 	$atts['href'] = isset( $atts['href'] ) 

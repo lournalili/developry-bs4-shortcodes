@@ -12,13 +12,17 @@
 	GitHub Plugin URI: https://github.com/krasenslavov/developry-bs4-shortcodes
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+
 // See if WP have support for all shortcode functions we will need in our plugin.
 if ( ! function_exists( 'shortcode_atts' ) 
 	|| ! function_exists( 'add_shortcode') 
 	|| ! function_exists( 'remove_shortcode')
 	|| ! function_exists( 'do_shortcode') ) {
-
-	return;
+	exit;
 }
 
 // Initialize.
@@ -40,14 +44,29 @@ class Developry_BS4_Shortcodes {
 	// Files with shortcode functions in /shortcodes.
 	private $components = array(
 		'alert',
+		'badge',
+		'blockquote',
 		'button',
+		'image',
+		'jumbotron',
+		'list', // [list] [list-item]
+		'typography', // [br] [link] [text]
 		// 'gallery',
 	);
 
 	// All available shortcode keywords.
 	private $shortcodes = array(
 		'alert',
+		'badge',
+		'blockquote',
+		'br',
 		'button',
+		'image',
+		'jumbotron',
+		'link',
+		'list',
+		'list-item',
+		'text',
 		// 'gallery',
 	);
 
@@ -147,7 +166,7 @@ class Developry_BS4_Shortcodes {
 	}
 }
 
-// Helper functions used to convert our shortcodes in /shortcodes into HTML.
+// Helper functions used to convert our shortcodes from /shortcodes into HTML.
 final class Developry_BS4_Helpers {
 
 	// Set the attribute value(s); for numeric atts name can be boolean.

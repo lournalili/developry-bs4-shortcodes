@@ -1,7 +1,19 @@
+.developry-bs4-shortcodes-media-buttons-extend {
+}
+
 .button-developry-bs4-shortcodes .dashicons {
 	font-size: 20px;
 	top: 3px;
 	left: 0px;
 	position: relative;
 	color: inherit;
+}
+
+.developry-bs4-shortcodes-hint {
+	position: relative;
+	top: 5px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 500px;
 }

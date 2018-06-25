@@ -1,8 +1,8 @@
 /**
  * [shortcode attrs]...[/shortcode]
- * [button color= outline= size= active=active disabled=disabled fluid= xclass=]content[/button]
+ * [jumbotron bg= text= fluid=fluid xclass]content[/jumbotron]
  */
-var developry_bs4_shortcode_button = [
+var developry_bs4_shortcode_jumbotron = [
 	{ 
 		label     : 'Content', 
 		type      : 'textbox',  
@@ -12,15 +12,52 @@ var developry_bs4_shortcode_button = [
 		rows      : 8,
 	},
 	{ 
-		label : 'Local or external link URL', 
-		type  : 'textbox',  
-		name  : 'href', 
-		value : '', 
+		label : 'Background color', 
+		type  : 'listbox', 
+		name  : 'bg', 
+				values: [ 
+			{ 
+				text  : 'unset', 
+				value : '',
+			},
+			{ 
+				text  : 'primary', 
+				value : 'primary' ,
+			},
+			{ 
+				text  : 'secondary', 
+				value : 'secondary',
+			},
+			{ 
+				text  : 'dark', 
+				value : 'dark',
+			},
+			{ 
+				text  : 'light', 
+				value : 'light',
+			},
+			{ 
+				text  : 'danger', 
+				value : 'danger',
+			},
+			{ 
+				text  : 'info', 
+				value : 'info',
+			},
+			{ 
+				text  : 'success', 
+				value : 'success',
+			},
+			{ 
+				text  : 'warning', 
+				value : 'warning',
+			},
+		],
 	},
 	{ 
-		label : 'Button color', 
+		label : 'Text color', 
 		type  : 'listbox', 
-		name  : 'color', 
+		name  : 'text', 
 		values: [ 
 			{ 
 				text  : 'unset', 
@@ -51,119 +88,28 @@ var developry_bs4_shortcode_button = [
 				value : 'info',
 			},
 			{ 
-				text  : 'warning', 
-				value : 'warning',
-			},
-			{ 
 				text  : 'success', 
 				value : 'success',
-			},
-		],
-	},
-	{ 
-		label : 'Button outline border color', 
-		type  : 'listbox', 
-		name  : 'outline', 
-		values: [ 
-			{ 
-				text  : 'unset', 
-				value : '', 
-			},
-			{ 
-				text  : 'primary', 
-				value : 'primary', 
-			},
-			{ 
-				text  : 'secondary', 
-				value : 'secondary',
-			},
-			{ 
-				text  : 'dark', 
-				value : 'dark',
-			},
-			{ 
-				text  : 'light', 
-				value : 'light',
-			},
-			{ 
-				text  : 'danger', 
-				value : 'danger',
-			},
-			{ 
-				text  : 'info', 
-				value : 'info',
 			},
 			{ 
 				text  : 'warning', 
 				value : 'warning',
 			},
-			{ 
-				text  : 'success', 
-				value : 'success',
-			},
 		],
-	},
-	{ 
-		label : 'Button size', 
-		type  : 'listbox', 
-		name  : 'size', 
-		values: [ 
-			{ 
-				text  : 'normal', 
-				value : '', 
-			},
-			{ 
-				text  : 'smaller', 
-				value : 'sm',
-			},
-			{ 
-				text  : 'larger', 
-				value : 'lg',
-			},
-		],
-	},
-	{ 
-		label : 'Is it active?', 
-		type  : 'listbox', 
-		name  : 'active', 
-		values: [
-			{ 
-				text  : 'no', 
-				value : '', 
-			},
-			{ 
-				text  : 'yes', 
-				value : 'active',
-			},
-		],
-	},
-	{ 
-		label : 'Is it disabled?', 
-		type  : 'listbox', 
-		name  : 'disabled', 
-		values: [
-			{ 
-				text  : 'no', 
-				value : '', 
-			},
-			{ 
-				text  : 'yes', 
-				value : 'disabled',
-			},
-		]
 	},
 	{ 
 		label : 'Is it fluid?', 
 		type  : 'listbox', 
 		name  : 'fluid', 
-		values: [
+		values: 
+		[
 			{ 
 				text  : 'no', 
-				value : '', 
+				value : '' 
 			},
 			{ 
 				text  : 'yes', 
-				value : 'block',
+				value : 'fluid',
 			},
 		],
 	},
@@ -179,9 +125,9 @@ var developry_bs4_shortcode_button = [
 		name  : 'shortcode', 
 		values: [ 
 			{ 
-				text  : 'button', 
-				value : 'button', 
-			}, 
-		], 
+				text  : 'jumbotron', 
+				value : 'jumbotron' ,
+			},
+		],
 	},
 ];

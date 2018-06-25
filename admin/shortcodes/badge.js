@@ -1,8 +1,9 @@
 /**
+ *
  * [shortcode attrs]...[/shortcode]
- * [alert color= dismissable= dismissable xclass=]content[/alert]
+ * [badge color= href= pill=pill xclass=]content[/badge]
  */
-var developry_bs4_shortcode_alert = [
+var developry_bs4_shortcode_badge = [
 	{ 
 		label     : 'Content', 
 		type      : 'textbox',  
@@ -12,7 +13,13 @@ var developry_bs4_shortcode_alert = [
 		rows      : 8,
 	},
 	{ 
-		label : 'Alert color', 
+		label : 'Local or external link URL', 
+		type  : 'textbox',  
+		name  : 'href', 
+		value : '', 
+	},
+	{ 
+		label : 'Badge color', 
 		type  : 'listbox', 
 		name  : 'color', 
 		values: [ 
@@ -55,18 +62,17 @@ var developry_bs4_shortcode_alert = [
 		],
 	},
 	{ 
-		label : 'Is it dismissable?', 
+		label : 'Is it a pill?', 
 		type  : 'listbox', 
-		name  : 'dismissable', 
-		values: 
-		[
+		name  : 'pill', 
+		values: [
 			{ 
 				text  : 'no', 
-				value : '' 
+				value : '', 
 			},
 			{ 
 				text  : 'yes', 
-				value : 'dismissable',
+				value : 'pill',
 			},
 		],
 	},
@@ -82,9 +88,9 @@ var developry_bs4_shortcode_alert = [
 		name  : 'shortcode', 
 		values: [ 
 			{ 
-				text  : 'alert', 
-				value : 'alert',
-			},
+				text  : 'badge', 
+				value : 'badge',
+			}, 
 		],
 	},
 ];

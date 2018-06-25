@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Developry_BS4_Editor {
 
 	// Constructor.
@@ -40,20 +44,26 @@ class Developry_BS4_Editor {
 	// Add preview buttons into the media buttons area.
 	public function add_buttons() {
 
+
 		print '<button type="button" class="button button-developry-bs4-shortcodes button-preview-toggle">
 			<span class="dashicons dashicons-desktop"></span> 
-			<span class="button-text">Preview Mode</span>
+			<span class="button-text">Preview</span>
 		</button>';
 
 		print '<button type="button" class="button button-developry-bs4-shortcodes button-convert-toggle">
 			<span class="dashicons dashicons-share-alt"></span> 
-			<span class="button-text">Convert Shortcodes</span>
+			<span class="button-text">Shortcodes</span>
 		</button>';
 
 		print '<button type="button" class="button button-developry-bs4-shortcodes button-highlight-toggle">
-			<span class="dashicons dashicons-editor-spellcheck"></span> 
-			<span class="button-text">Highlight Shortcodes</span>
+			<span class="dashicons dashicons-visibility"></span> 
+			<span class="button-text">Highlight</span>
 		</button>';
+
+		print '<span class="developry-bs4-shortcodes-hint">
+			<strong>Hint:</strong> Double click on shortcode tag keyword to Edit and Update its attributes.
+		</span>';
+
 	}
 
 	// Create a custom WP editor for our preview area and populate with current post content.

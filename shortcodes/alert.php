@@ -1,8 +1,12 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Process the [alert][/alert] shortcode.
 //
-// e.g. [alert color= dismissable=dismissable xclass=]...[/alert]
+// e.g. [alert color= dismissable= dismissable xclass=]content[/alert]
 //
 function developry_bs4_shortcode_alert( $atts, $content = null ) {
 
@@ -17,7 +21,7 @@ function developry_bs4_shortcode_alert( $atts, $content = null ) {
 		? Developry_BS4_Helpers::set('color', 'alert-' . $atts['color']) 
 		: '';
 	
-	$attr['dismissable'] = Developry_BS4_Helpers::set(
+	$atts['dismissable'] = Developry_BS4_Helpers::set(
 		Developry_BS4_Helpers::in_multiarr( 'dismissable', $atts ), 
 		'alert-dismissable fade show'
 	);
@@ -27,7 +31,7 @@ function developry_bs4_shortcode_alert( $atts, $content = null ) {
 		: '';
 
 	// Add additional content based on numeric (boolean) type options.  
-	if ( $attr['dismissable'] ) {
+	if ( $atts['dismissable'] ) {
 		
 		$content = '<button color="button" class="close" data-dismiss="alert" aria-label="close">
 			<span aria-hidden="true">&times;</span></button>' . $content;
@@ -36,7 +40,7 @@ function developry_bs4_shortcode_alert( $atts, $content = null ) {
 	// Build tag attributes.
 	$atts = shortcode_atts( 
 		array(
-			'class' => 'alert' . $atts['color'] . $attr['dismissable'] . $atts['xclass'],
+			'class' => 'alert' . $atts['color'] . $atts['dismissable'] . $atts['xclass'],
 			'role'  => 'alert'
 		), $atts
 	);

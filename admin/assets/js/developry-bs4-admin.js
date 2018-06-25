@@ -1,7 +1,5 @@
 'use strict';
 
-window.wp = window.wp || {};
-
 ( function ( $ ) {
 
 	'use strict';

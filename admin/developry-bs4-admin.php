@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 class Developry_BS4_Admin {
 
 	// Plugin root URL set by the constuctor.
@@ -8,7 +12,16 @@ class Developry_BS4_Admin {
 	// Files with shortcode modal editor.windowManger body in /admin/shortcodes.
 	private $components = array(
 		'alert',
+		'badge',
+		'blockquote',
+		'br',
 		'button',
+		'image',
+		'jumbotron',
+		'link',
+		'list',
+		'list-item',
+		'text',
 	);
 
 	// Constructor.
@@ -75,6 +88,9 @@ class Developry_BS4_Admin {
 	// Register our plugin into the TinyMCE and load all components body for editor.windowManager.
 	public function register_tinymce_plugin( $plugins ) {
 
+		// Loading the class for TinyMCE editor [iframe window].
+		$plugins['developry_bs4_shortcode_class'] = $this->plugin_url . '/assets/js/developry-bs4-loader.js';
+
 		foreach ($this->components as $component) {
 		
 			$plugins['developry_bs4_shortcode_' . $component] = $this->plugin_url . '/shortcodes/' . $component . '.js';
@@ -82,9 +98,6 @@ class Developry_BS4_Admin {
 
 		// This is the main JS files that will handle TinyMCE customization.
 		$plugins['developry_bs4_shortcode_init'] = $this->plugin_url . '/shortcodes/init.js';
-
-		// Loading the class for TinyMCE editor [iframe window].
-		$plugins['developry_bs4_shortcode_clas'] = $this->plugin_url . '/assets/js/developry-bs4-class.js';
 
 	    return $plugins;
 	}
@@ -115,18 +128,18 @@ class Developry_BS4_Admin {
 	// Add plugin custom JS into the footer of the WP admin area.
 	public function enqueue_admin_scripts() {
 
+		// Loading the class for the main window.
 		wp_enqueue_script(
-			'developry-bs4-admin', 
-			$this->plugin_url . '/assets/js/developry-bs4-admin.js', 
+			'developry-bs4-init', 
+			$this->plugin_url . '/assets/js/developry-bs4-loader.js', 
 			array( 'jquery' ), 
 			null, 
 			true
 		);
 
-		// Loading the class for the main window.
 		wp_enqueue_script(
-			'developry-bs4-init', 
-			$this->plugin_url . '/assets/js/developry-bs4-class.js', 
+			'developry-bs4-admin', 
+			$this->plugin_url . '/assets/js/developry-bs4-admin.js', 
 			array( 'jquery' ), 
 			null, 
 			true
