@@ -3,6 +3,7 @@ var shortcodes = [
 	'alert',
 	'badge',
 	'blockquote',
+	'hr',
 	'br',
 	'button',
 	'image',
@@ -60,7 +61,7 @@ var Developry_BS4_Editor = {
 			return false;
 		}
 
-		var html = tinymce.get('content').getContent( { format : 'hrml' } );
+		var html = tinymce.get('content').getContent( { format : 'raw' } );
 
 		if ( 'on' === state ) {
 
@@ -77,37 +78,33 @@ var Developry_BS4_Editor = {
 		}
 	},
 	// Convert all shortcodes to HTML blocks
-	shortcode2html : function( shortcode ) {
-
-		var html = '';
+	shortcode2html : function( shortcode, html = '' ) {
 
 		if ( ! shortcode ) {
     	
     		return;
   		}
 
-		html += '<div class="wpview wpview-wrap" data-wpview-text="' 
-			+ encodeURIComponent( wp.shortcode.string( shortcode ) ) + '" data-wpview-type="' 
-			+ shortcode.tag + '" contenteditable="false">';
+  		html += '<div class="wpview wpview-wrap" data-wpview-text="' 
+			+ encodeURIComponent( wp.shortcode.string( shortcode, tinymce ) )
+			+ '" data-wpview-type="' + shortcode.tag + '" contenteditable="false">';
 
 		html += Developry_BS4_Shortcodes.init( shortcode );
 
   		html += '<span class="wpview-end"></span></div>'
 
-  		if ( null !== html ) {
-
-  			return html;
-  		}
+  		return html;
   	},
-  	// Covert all HTML blocks associated with shortcodes back to shortcodes.
+  	// Convert all HTML blocks associated with shortcodes back to shortcodes.
   	html2shortcode : function( html, tinymce ) {
 
   		var dom  = tinymce.get( 'content' ).dom;
-		var wrap = $( '<div/>' ).html( html );
+  		var wrap = $( '<div/>' ).html( html );
 
 		for (var idx = 0; idx < wrap.find( '.wpview' ).length; idx++) {
 
 			var shorcode_obj   = wrap.find( '.wpview' ).get(idx);
+
 			var shortcode_text = decodeURIComponent( shorcode_obj.getAttribute( 'data-wpview-text' ) );
 
 			var shortcode_el = $( '<p/>' ).html( shortcode_text );

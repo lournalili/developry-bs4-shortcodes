@@ -3,11 +3,11 @@ var Developry_BS4_Helpers = {
 
 	// Invoke on editor click, highlight the shortcode and 
 	// open the modal window with attributes to edit
-	// TODO : NOT VERY USER FRIENDLY FOR EDITING NEED WORK
 	edit_shortcode : function ( editor ) {
 
 		var regexp = new RegExp('\\[(' 
-			+ shortcodes.join( '|' ) + ')(\\s[\\s\\S]*?)?\\]' + '(?:((?!\\s*?(?:\\[(' 
+			+ shortcodes.join( '|' ) + ')(\\s[\\s\\S]*?)?\\]' 
+			+ '(?:((?!\\s*?(?:\\[(' 
 			+ shortcodes.join( '|' ) + ')|\\[\\/(?!(' 
 			+ shortcodes.join( '|' ) + '))))[\\s\\S]*?)' + '(\\[\/(' 
 			+ shortcodes.join( '|' ) + ')\\]))?');
@@ -36,8 +36,13 @@ var Developry_BS4_Helpers = {
 		Developry_BS4_Helpers.reset_shortcode_atts( body );
 
 		// Regex to check if the selection has valid shortcode structure.
-		var regexp = new RegExp('\\[' + type + '(\\s[\\s\\S]*?)?\\]' + '(?:((?!\\s*?(?:\\[' + type + '[(.?)+]|\\[\\/(?!' 
-			+ type + ')))[\\s\\S]*?)' + '(\\[\/' + type + '\\]))?');
+		var regexp = new RegExp('\\[' 
+			+ type + '(\\s[\\s\\S]*?)?\\]'
+			+ '(?:((?!\\s*?(?:\\[' 
+			+ type + '[(.?)+]|\\[\\/(?!' 
+			+ type + ')))[\\s\\S]*?)' + '(\\[\/' 
+			+ type + '\\]))?');
+
 		var selected_arr = shortcode.match(regexp);
 
 		// Check if the shorcode exists.
@@ -77,7 +82,10 @@ var Developry_BS4_Helpers = {
 			// Populate the content area.
 			if ( body[0].name === 'content' ) {
 
-				body[0].value = selected_arr[2];
+				var tmp = document.createElement("DIV");
+				tmp.innerHTML = selected_arr[2];
+
+				body[0].value = tmp.textContent || tmp.innerText || '';
 			}
 
 		} else {
@@ -110,7 +118,8 @@ var Developry_BS4_Helpers = {
 
 		return atts;
 	},
-	// Helper fnc that will reset populated from the previous element attributes.
+	// Helper fnc that will reset populated from the previous element 
+	// attributes in editor modal windowManager.
 	reset_shortcode_atts : function( obj ) {
 
 		$.each( obj, function ( key, option ) {
@@ -146,7 +155,7 @@ var Developry_BS4_Helpers = {
 		}
 		return html;
 	},
-	// Check if shortcode is sound in shortcodes array.
+	// Check if shortcode is found in shortcodes array.
 	// Used to extend WP core shorcode Edit button.
 	in_array : function (value, array = shortcodes) {
 

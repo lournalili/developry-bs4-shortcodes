@@ -51,6 +51,11 @@
 		
 			Developry_BS4_Editor.toggle( 'on', this );
 			Developry_BS4_Editor.highlighter( 'on', tinymce );
+
+			// ONLY IF the Highlight is ON then you can edit/update shortcodes.
+			Developry_BS4_Helpers.edit_shortcode( tinymce.get( 'content' ) );
 		}
 	} );
+
+	
 } )( jQuery );

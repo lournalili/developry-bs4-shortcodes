@@ -14,20 +14,23 @@ class Developry_BS4_Admin {
 		'alert',
 		'badge',
 		'blockquote',
-		'br',
 		'button',
 		'image',
-		'jumbotron',
-		'link',
-		'list',
-		'list-item',
-		'text',
+		'jumbotron', 
+		'typography/br',
+		'typography/hr',
+		'typography/list',
+		'typography/list-item',
+		'typography/text',
+		// 'gallery',
 	);
 
 	// Constructor.
 	public function __construct() {
 
 		$this->plugin_url = plugins_url( '', __FILE__ );
+
+		$this->init();
 	}
 
 	// Load TinyMCE custom assets.
@@ -92,12 +95,16 @@ class Developry_BS4_Admin {
 		$plugins['developry_bs4_shortcode_class'] = $this->plugin_url . '/assets/js/developry-bs4-loader.js';
 
 		foreach ($this->components as $component) {
+
+			$component_parts     = explode('/', $component);
+			$component_filename  = end($component_parts);
+			$component_url = str_replace('admin', '', $this->plugin_url);
 		
-			$plugins['developry_bs4_shortcode_' . $component] = $this->plugin_url . '/shortcodes/' . $component . '.js';
+			$plugins['developry_bs4_shortcode_' . $component] =  $component_url . '/shortcodes/' . $component . '/' . $component_filename . '.js';
 		}
 
 		// This is the main JS files that will handle TinyMCE customization.
-		$plugins['developry_bs4_shortcode_init'] = $this->plugin_url . '/shortcodes/init.js';
+		$plugins['developry_bs4_shortcode_init'] = $component_url . '/shortcodes/init.js';
 
 	    return $plugins;
 	}

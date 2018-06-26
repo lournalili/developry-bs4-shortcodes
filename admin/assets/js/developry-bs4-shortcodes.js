@@ -3,6 +3,7 @@ var shortcodes = [
 	'alert',
 	'badge',
 	'blockquote',
+	'hr',
 	'br',
 	'button',
 	'image',
@@ -124,6 +125,15 @@ var Developry_BS4_Shortcodes = {
 		});
 
 		return '<button class="btn ' + cls + '" ' + onclick + '>' + shortcode.content + '</button>';
+	},
+	hr : function( shortcode, cls = '' ) {
+
+		$.each( shortcode.attrs.named, function( key, val) {
+
+			cls += ' ' + val;
+		});
+
+		return '<hr class="' + cls + '" />';
 	},
 	// Build the IMAGE html from shortcode
 	image : function( shortcode, cls = '', src = 'src="http://via.placeholder.com/2000x1200"', alt = 'alt="placeholder"' ) {

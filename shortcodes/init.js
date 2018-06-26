@@ -13,9 +13,6 @@
 	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_blockquote', {} );
 	tinymce.PluginManager.add( 'developry_bs4_shortcode_blockquote', tinymce.plugins.developry_bs4_shortcode_blockquote );
 
-	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_br', {} );
-	tinymce.PluginManager.add( 'developry_bs4_shortcode_br', tinymce.plugins.developry_bs4_shortcode_br );
-
 	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_button', {} );
 	tinymce.PluginManager.add( 'developry_bs4_shortcode_button', tinymce.plugins.developry_bs4_shortcode_button );
 
@@ -24,6 +21,12 @@
 
 	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_jumbotron', {} );
 	tinymce.PluginManager.add( 'developry_bs4_shortcode_jumbotron', tinymce.plugins.developry_bs4_shortcode_jumbotron );
+
+	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_br', {} );
+	tinymce.PluginManager.add( 'developry_bs4_shortcode_br', tinymce.plugins.developry_bs4_shortcode_br );
+
+	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_hr', {} );
+	tinymce.PluginManager.add( 'developry_bs4_shortcode_hr', tinymce.plugins.developry_bs4_shortcode_hr );
 
 	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_link', {} );
 	tinymce.PluginManager.add( 'developry_bs4_shortcode_link', tinymce.plugins.developry_bs4_shortcode_link );
@@ -41,8 +44,6 @@
 	tinymce.create( 'tinymce.plugins.developry_bs4_shortcode_init', { 
 
 		init : function( editor, url ) {
-
-			Developry_BS4_Helpers.edit_shortcode( editor );
 
 			// Add TinyMCE buttons for all the shortcodes.
 			editor.addButton( 'developry_bs4_shortcode_element_button', {
@@ -65,6 +66,9 @@
 					}, },
 					{ text : 'Break Line', icon : 'dashicon dashicons-editor-break', onclick : function() { 
 						Developry_BS4_Window.br( editor ); 
+					}, },
+					{ text : 'Horizontal Line', icon : 'dashicon dashicons-minus', onclick : function() { 
+						Developry_BS4_Window.hr( editor ); 
 					}, },
 					{ text : 'Image', icon : 'dashicon dashicons-format-image', onclick : function() { 
 						Developry_BS4_Window.image( editor ); 

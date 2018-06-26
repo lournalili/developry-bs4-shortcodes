@@ -7,7 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Developry_BS4_Editor {
 
 	// Constructor.
-	public function __construct() {}
+	public function __construct() {
+
+		$this->init();
+	}
 
 	// Customize editor and add toggle buttons.
 	public function init() {
@@ -61,7 +64,7 @@ class Developry_BS4_Editor {
 		</button>';
 
 		print '<span class="developry-bs4-shortcodes-hint">
-			<strong>Hint:</strong> Double click on shortcode tag keyword to Edit and Update its attributes.
+			<em>Hint:</em> Turn on highlighter and double click on shortcode tag keyword to Edit.
 		</span>';
 
 	}

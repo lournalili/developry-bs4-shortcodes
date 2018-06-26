@@ -16,18 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
-// See if WP have support for all shortcode functions we will need in our plugin.
-if ( ! function_exists( 'shortcode_atts' ) 
-	|| ! function_exists( 'add_shortcode') 
-	|| ! function_exists( 'remove_shortcode')
-	|| ! function_exists( 'do_shortcode') ) {
-	exit;
-}
-
 // Initialize.
-$devry = new Developry_BS4_Shortcodes;
-$devry->init();
+new Developry_BS4_Shortcodes;
 
 // Our main plugin class used to load the classes, functions and assets needed.
 class Developry_BS4_Shortcodes {
@@ -48,9 +38,12 @@ class Developry_BS4_Shortcodes {
 		'blockquote',
 		'button',
 		'image',
-		'jumbotron',
-		'list', // [list] [list-item]
-		'typography', // [br] [link] [text]
+		'jumbotron', 
+		'typography/br',
+		'typography/hr',
+		'typography/list',
+		'typography/list-item',
+		'typography/text',
 		// 'gallery',
 	);
 
@@ -60,6 +53,7 @@ class Developry_BS4_Shortcodes {
 		'badge',
 		'blockquote',
 		'br',
+		'hr',
 		'button',
 		'image',
 		'jumbotron',
@@ -71,9 +65,45 @@ class Developry_BS4_Shortcodes {
 	);
 
 	// Contructor.
+	// Check if have the PHP 5.3, WordPress 4.7 version are supported.
 	public function __construct() {
 
 		$this->plugin_dir = plugin_dir_path( __FILE__ );
+
+		if ( version_compare( PHP_VERSION, '5.3.0', '<' )
+			&& version_compare( $GLOBALS['wp_version'], '4.7-alpha', '<' ) ) {
+
+			add_action( 
+				'admin_notices', 
+				array( 
+					$this, 
+					'show_minimum_support_notice'
+				) 
+			);
+
+		} else  {
+
+			// Load up the whole plugin only for post, page, and widgets. 
+			if ( in_array(
+				basename( $_SERVER['PHP_SELF'] ), 
+				array(
+					'post.php', 
+					'page.php', 
+					'page-new.php', 
+					'post-new.php', 
+					'widgets.php', 
+					'admin-ajax.php'))) {
+
+				$this->init();
+			} else {
+
+				// Load up the shortcodes functions ONLY for front end.
+				if ( ! is_admin() ) {
+
+					$this->shortcode_loader();
+				}
+			}
+		}
 	}
 
 	// Load all admin classes and files with shortcode functions.
@@ -88,8 +118,7 @@ class Developry_BS4_Shortcodes {
 					require_once $this->plugin_dir . '/admin/' . $class_filename . '.php';
 
 					// Initialize.
-					$devry = new $class_name;
-					$devry->init();
+					new $class_name;
 				}
 			}
 		}
@@ -101,6 +130,25 @@ class Developry_BS4_Shortcodes {
 				'shortcode_loader',
 			)
 		);
+
+
+		add_action(
+			'content_save_pre',
+			array(
+				$this,
+				'remove_shortcode_marks',
+			), 10, 1
+		);
+
+/*
+		add_filter(
+			'the_editor_content', 
+			array( 
+				$this, 
+				'fix_shortcodes' 
+			) 
+		);
+*/
 	}
 
 	// Load all available & existing files with shortcode functions.
@@ -110,10 +158,13 @@ class Developry_BS4_Shortcodes {
 
 		foreach ($this->components as $component) {
 
-			if ( $this->plugin_dir 
-				&& file_exists( $this->plugin_dir . '/shortcodes/' . $component . '.php' ) ) {
+			$component_parts     = explode('/', $component);
+			$component_filename  = end($component_parts);
 
-				require_once  $this->plugin_dir . '/shortcodes/' . $component . '.php';
+			if ( $this->plugin_dir 
+				&& file_exists( $this->plugin_dir . 'shortcodes/' . $component . '/' . $component_filename . '.php' ) ) {
+
+				require_once  $this->plugin_dir . 'shortcodes/' . $component . '/' . $component_filename . '.php';
 			}
 		}
 	}
@@ -133,6 +184,7 @@ class Developry_BS4_Shortcodes {
 				// under /shortcodes/gallery.php with function 
 				// named developry_bs4_shortcode_gallery()
 				remove_shortcode( $shortcode );
+
 
 				add_shortcode( 
 					$shortcode, 
@@ -164,6 +216,46 @@ class Developry_BS4_Shortcodes {
 
 		return false;
 	}
+/*
+	// Highlight and adding <mark></mark> around shortcodes 
+	// from our stack for easy editing and manipulation.
+	// REMOVED : ADDED via JS (keep it just as a reference for now)
+	public function fix_shortcodes( $content ) {
+
+		foreach ($this->shortcodes as $shortcode) {
+
+			$regexp = '/\[' 
+				. $shortcode . '(\s[\s\S]*?)?\]'
+				. '(?:((?!\s*?(?:\[' 
+				. $shortcode . '[(.?)+]|\[\/(?!' 
+				. $shortcode . ')))[\s\S]*?)' . '(\[\/' 
+				. $shortcode . '\]))?/i';
+
+			$content = preg_replace($regexp, '<mark>$0</mark>', $content);
+		}
+
+		return $content;
+	}
+*/
+
+	// In case post is update with Highlight ON remove all <mark> tags
+	public function remove_shortcode_marks( $content ) {
+
+		$content = preg_replace('/<mark[^>]*>/i', '',$content);
+		$content = preg_replace('/<\/mark>/i', '', $content);
+
+		return $content;
+	}
+
+	// Add PHP version notice if below 5.3
+	public function show_minimum_support_notice() {
+
+		 $class = 'notice notice-error';
+
+		 $message = '<strong>Developry Bootstrap 4 Shortcodes</strong> requires PHP version 5.3 and WordPress 4.7 or above. You are running PHP ' . PHP_VERSION . ' and WordPress ' . $GLOBALS['wp_version'] . '. Please upgrade to the minimum supported versions for the plugin to be loaded.';
+
+		return '<div class="' . $class . '">' . $message . '</div>';
+	} 
 }
 
 // Helper functions used to convert our shortcodes from /shortcodes into HTML.

@@ -3,6 +3,7 @@ var shortcodes = [
 	'alert',
 	'badge',
 	'blockquote',
+	'hr',
 	'br',
 	'button',
 	'image',
@@ -28,19 +29,12 @@ var Developry_BS4_Window = {
 				developry_bs4_shortcode_alert 
 			),
 			onsubmit : function( event ) {
-				
-				if ( $( '.button-developry-bs4-shortcodes.button-primary' ) ) {
 
-					Developry_BS4_Editor.converter( 'on', tinymce );
-				
-				} else {
-
-					editor.insertContent('[' + event.data.shortcode + ' ' 
-						+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' ]' 
-							+ event.data.content 
-							+ '[/' + event.data.shortcode + ']'
-					);
-				}
+				editor.insertContent('[' + event.data.shortcode + ' ' 
+					+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' ]' 
+						+ event.data.content 
+						+ '[/' + event.data.shortcode + ']'
+				);
 			}
 		} );
 	},
@@ -122,6 +116,25 @@ var Developry_BS4_Window = {
 					+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' ]' 
 						+ event.data.content 
 						+ '[/' + event.data.shortcode + ']'
+				);
+			}
+		} );
+	},
+	// HR
+	hr : function( editor ) {
+
+		editor.windowManager.open({			
+		
+			title    : 'Develop(ry) Shortcodes > Elements > Horizontal Line',
+			minWidth : 640,
+			body 	 : Developry_BS4_Helpers.get_shortcode( 
+				'hr', editor.selection.getContent( { 'format' : 'html' } ), 
+				developry_bs4_shortcode_hr
+			),
+			onsubmit : function( event ) {
+	
+				editor.insertContent('[' + event.data.shortcode + ' ' 
+					+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' /]' 
 				);
 			}
 		} );
@@ -255,30 +268,11 @@ var Developry_BS4_Window = {
 			),
 			onsubmit : function( event ) {
 
-				if ( $( '.button-developry-bs4-shortcodes.button-primary' ) ) {
-
-					var dom  = tinymce.get( 'content' ).dom;
-
-					var shortcode_text = '[' + event.data.shortcode + ' ' 
-						+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' ]' 
-							+ event.data.content 
-							+ '[/' + event.data.shortcode + ']';
-
-					var shortcode_el = $( '<p/>' ).html( shortcode_text );
-					var tinymce_el   = tinymce.get( 'content' ).selection.getNode()
-
-					dom.replace(shortcode_el.get(0), tinymce_el);
-
-					// Developry_BS4_Editor.converter( 'on', tinymce );
-				
-				} else {
-
-					editor.insertContent('[' + event.data.shortcode + ' ' 
-						+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' ]' 
-							+ event.data.content 
-							+ '[/' + event.data.shortcode + ']'
-					);
-				}
+				editor.insertContent('[' + event.data.shortcode + ' ' 
+					+ Developry_BS4_Helpers.get_shortcode_atts( event.data ) + ' ]' 
+						+ event.data.content 
+						+ '[/' + event.data.shortcode + ']'
+				);
 			}
 		} );
 	},
