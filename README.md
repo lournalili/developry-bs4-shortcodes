@@ -1,5 +1,7 @@
 # Develop(ry) Bootstrap 4 Shortcodes
 
+Click on the screenshot below to watch how easy and quick is to create and customize a Bootstrap component with our WordPress plugin.
+
 [![Developry BS4 Shortcodes Demo](https://img.youtube.com/vi/THj-cLl60AM/0.jpg)](https://www.youtube.com/watch?v=THj-cLl60AM)
 
 **WORK IN PROGRESS**
