@@ -28,7 +28,6 @@ class Developry_BS4_Shortcodes {
 	// Admin classes to be loaded with our plugin in /admin.
 	private $classes = array(
 		'developry-bs4-admin'  => 'Developry_BS4_Admin',
-		'developry-bs4-editor' => 'Developry_BS4_Editor',
 	);
 
 	// Files with shortcode functions in /shortcodes.
@@ -41,6 +40,7 @@ class Developry_BS4_Shortcodes {
 		'jumbotron', 
 		'typography/br',
 		'typography/hr',
+		'typography/link',
 		'typography/list',
 		'typography/list-item',
 		'typography/text',
@@ -140,14 +140,14 @@ class Developry_BS4_Shortcodes {
 			), 10, 1
 		);
 
-/*
-		add_filter(
-			'the_editor_content', 
-			array( 
-				$this, 
-				'fix_shortcodes' 
-			) 
-		);
+/* REMOVED and moved to JS
+add_filter(
+'the_editor_content', 
+array( 
+$this, 
+'fix_shortcodes' 
+) 
+);
 */
 	}
 
@@ -216,26 +216,22 @@ class Developry_BS4_Shortcodes {
 
 		return false;
 	}
-/*
-	// Highlight and adding <mark></mark> around shortcodes 
-	// from our stack for easy editing and manipulation.
-	// REMOVED : ADDED via JS (keep it just as a reference for now)
-	public function fix_shortcodes( $content ) {
 
-		foreach ($this->shortcodes as $shortcode) {
-
-			$regexp = '/\[' 
-				. $shortcode . '(\s[\s\S]*?)?\]'
-				. '(?:((?!\s*?(?:\[' 
-				. $shortcode . '[(.?)+]|\[\/(?!' 
-				. $shortcode . ')))[\s\S]*?)' . '(\[\/' 
-				. $shortcode . '\]))?/i';
-
-			$content = preg_replace($regexp, '<mark>$0</mark>', $content);
-		}
-
-		return $content;
-	}
+/* REMOVED : Utilized via JS (keep it just as a reference for now...)
+// Highlight and adding <mark></mark> around shortcodes 
+// from our stack for easy editing and manipulation.
+public function fix_shortcodes( $content ) {
+foreach ($this->shortcodes as $shortcode) {
+$regexp = '/\[' 
+. $shortcode . '(\s[\s\S]*?)?\]'
+. '(?:((?!\s*?(?:\[' 
+. $shortcode . '[(.?)+]|\[\/(?!' 
+. $shortcode . ')))[\s\S]*?)' . '(\[\/' 
+. $shortcode . '\]))?/i';
+$content = preg_replace($regexp, '<mark>$0</mark>', $content);
+}
+return $content;
+}
 */
 
 	// In case post is update with Highlight ON remove all <mark> tags

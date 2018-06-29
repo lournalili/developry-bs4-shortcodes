@@ -1,4 +1,10 @@
-.developry-bs4-shortcodes-media-buttons-extend {
+#developry-shortcodes-custom-toolbar {
+	display: inline-block;
+}
+
+#developry-shortcodes-preview-editor_ifr {
+	max-width: 760px;
+	padding: 15px;
 }
 
 .button-developry-bs4-shortcodes .dashicons {

@@ -20,7 +20,7 @@ var developry_bs4_shortcode_blockquote = [
 	{ 
 		label : 'Background color', 
 		type  : 'listbox', 
-		name  : 'bg', 
+		name  : 'color', 
 		values: [ 
 			{ 
 				text  : 'unset', 

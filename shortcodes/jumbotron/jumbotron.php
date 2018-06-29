@@ -17,15 +17,15 @@ function developry_bs4_shortcode_jumbotron( $atts, $content = null ) {
 	}
 
 	// Assign and format HTML attributes based on our shortcode.
-	$atts['bg'] = isset($atts['bg']) 
-		? Developry_BS4_Helpers::set('bg', 'bg-' . $atts['bg']) 
+	$atts['color'] = isset($atts['color']) 
+		? Developry_BS4_Helpers::set('color', 'bg-' . $atts['color']) 
 		: '';
 
 	$atts['text'] = isset($atts['text']) 
 		? Developry_BS4_Helpers::set('text', 'text-' . $atts['text']) 
 		: '';
 
-	$attr['fluid'] = Developry_BS4_Helpers::set(
+	$atts['fluid'] = Developry_BS4_Helpers::set(
 		Developry_BS4_Helpers::in_multiarr( 'fluid', $atts ), 
 		'jumbotron-fluid'
 	);
@@ -39,7 +39,7 @@ function developry_bs4_shortcode_jumbotron( $atts, $content = null ) {
 	// Build tag attributes.
 	$atts = shortcode_atts( 
 		array(
-			'class' => 'jumbotron' . $atts['bg'] . $atts['text'] . $atts['fluid'] . $atts['xclass'],
+			'class' => 'jumbotron' . $atts['color'] . $atts['text'] . $atts['fluid'] . $atts['xclass'],
 		), $atts
 	);
 

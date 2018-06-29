@@ -50,7 +50,7 @@ var developry_bs4_shortcode_image = [
 	{ 
 		label : 'Is it rounded?', 
 		type  : 'listbox', 
-		name  : 'img-rounded', 
+		name  : 'rounded', 
 		values: 
 		[
 			{ 

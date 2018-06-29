@@ -17,8 +17,8 @@ function developry_bs4_shortcode_text( $atts, $content = null ) {
 	}
 
 	// Assign and format HTML attributes based on our shortcode.
-	$atts['bg'] = isset($atts['bg']) 
-		? Developry_BS4_Helpers::set('bg', 'bg-' . $atts['bg']) 
+	$atts['color'] = isset($atts['color']) 
+		? Developry_BS4_Helpers::set('color', 'bg-' . $atts['color']) 
 		: '';
 
 	$atts['text'] = isset($atts['text']) 
@@ -55,17 +55,17 @@ function developry_bs4_shortcode_text( $atts, $content = null ) {
 	// Build tag attributes.
 	$atts = shortcode_atts( 
 		array(
-			'class' => $atts['bg'] . $atts['text'] . $atts['align'] . $atts['display'] . $atts['lead'] . $atts['xclass'],
+			'class' => $atts['color'] . $atts['text'] . $atts['align'] . $atts['display'] . $atts['lead'] . $atts['xclass'],
 		), $atts
 	);	
 
 	// Return and replace the shortcode with the following HTML code.
 	if ( $heading && $size ) {
 
-		return '<' . $size . ' ' . Developry_BS4_Helpers::implode_atts( $atts ) . '">' 
-			. do_shortcode( $content ) . '</' . $size . '>';
-	} else {
-		
+		return '<' . trim($size) . ' ' . Developry_BS4_Helpers::implode_atts( $atts ) . '>' 
+			. do_shortcode( $content ) . '</' . trim($size) . '>';
+	} else if ( $heading ) {
+
 		// Otherwise add default size for heading h3.
 		return '<h3 ' . Developry_BS4_Helpers::implode_atts( $atts ) . '">' . do_shortcode( $content ) . '</h3>';
 	}

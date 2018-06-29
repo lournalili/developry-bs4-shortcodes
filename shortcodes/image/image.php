@@ -50,7 +50,7 @@ function developry_bs4_shortcode_image( $atts, $content = null ) {
 	// Build tag attributes.
 	$atts = shortcode_atts( 
 		array(
-			'class' => 'img' . $atts['fluid'] . $atts['thumbnail'] . $atts['rounded'] . $atts['circl'] . $atts['xclass'],
+			'class' => 'img' . $atts['fluid'] . $atts['thumbnail'] . $atts['rounded'] . $atts['circle'] . $atts['xclass'],
 			'src'   => $atts['src'],
 		), $atts
 	);

@@ -1,9 +1,9 @@
 /**
  * [shortcode attrs]...[/shortcode]
- * [text bg= text= align= size= display= lead=lead heading=heading xclass=]content[/text]
+ * [jumbotron bg= text= fluid=fluid xclass]content[/jumbotron]
  */
-var developry_bs4_shortcode_text = [
-{ 
+var developry_bs4_shortcode_jumbotron = [
+	{ 
 		label     : 'Content', 
 		type      : 'textbox',  
 		name      : 'content', 
@@ -14,8 +14,8 @@ var developry_bs4_shortcode_text = [
 	{ 
 		label : 'Background color', 
 		type  : 'listbox', 
-		name  : 'bg', 
-		values: [ 
+		name  : 'color', 
+				values: [ 
 			{ 
 				text  : 'unset', 
 				value : '',
@@ -98,95 +98,9 @@ var developry_bs4_shortcode_text = [
 		],
 	},
 	{ 
-		label : 'Text alignment', 
+		label : 'Is it fluid?', 
 		type  : 'listbox', 
-		name  : 'align', 
-		values: [ 
-			{ 
-				text  : 'unset', 
-				value : '', 
-			},
-			{ 
-				text  : 'left', 
-				value : 'left', 
-			},
-			{ 
-				text  : 'right', 
-				value : 'right', 
-			},
-			{ 
-				text  : 'center', 
-				value : 'center', 
-			},
-		],
-	},
-	{ 
-		label : 'Text size', 
-		type  : 'listbox', 
-		name  : 'size', 
-		values: 
-		[ 
-			{ 
-				text  : 'unset', 
-				value : '' 
-			},
-			{ 
-				text  : 'heading 1', 
-				value : 'h1' 
-			},
-			{ 
-				text  : 'heading 2', 
-				value : 'h2' 
-			},
-			{ 
-				text  : 'heading 3', 
-				value : 'h3' 
-			},
-			{ 
-				text  : 'heading 4', 
-				value : 'h4' 
-			},
-			{ 
-				text  : 'heading 5', 
-				value : 'h5' 
-			},
-			{ 
-				text  : 'heading 6', 
-				value : 'h6' 
-			},
-		],
-	},
-	{ 
-		label : 'Text display size', 
-		type  : 'listbox', 
-		name  : 'display', 
-		values: [ 
-			{ 
-				text  : 'unset', 
-				value : '' 
-			},
-			{ 
-				text  : 'display 1', 
-				value : 'display-1' 
-			},
-			{ 
-				text  : 'display 2', 
-				value : 'display-2' 
-			},
-			{ 
-				text  : 'display 3', 
-				value : 'display-3' 
-			},
-			{ 
-				text  : 'display 4', 
-				value : 'display-4' 
-			},
-		],
-	},
-	{ 
-		label : 'Is it lead?', 
-		type  : 'listbox', 
-		name  : 'lead', 
+		name  : 'fluid', 
 		values: 
 		[
 			{ 
@@ -195,23 +109,7 @@ var developry_bs4_shortcode_text = [
 			},
 			{ 
 				text  : 'yes', 
-				value : 'lead'
-			},
-		],
-	},
-	{ 
-		label : 'Is it heading?', 
-		type  : 'listbox', 
-		name  : 'heading', 
-		values: 
-		[
-			{ 
-				text  : 'no', 
-				value : '' 
-			},
-			{ 
-				text  : 'yes', 
-				value : 'heading'
+				value : 'fluid',
 			},
 		],
 	},
@@ -227,9 +125,9 @@ var developry_bs4_shortcode_text = [
 		name  : 'shortcode', 
 		values: [ 
 			{ 
-				text  : 'text', 
-				value : 'text', 
-			}, 
-		], 
+				text  : 'jumbotron', 
+				value : 'jumbotron' ,
+			},
+		],
 	},
 ];

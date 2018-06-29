@@ -17,8 +17,8 @@ function developry_bs4_shortcode_blockquote( $atts, $content = null ) {
 	}
 
 	// Assign and format HTML attributes based on our shortcode.
-	$atts['bg'] = isset($atts['bg']) 
-		? Developry_BS4_Helpers::set('bg', 'bg-' . $atts['bg']) 
+	$atts['color'] = isset($atts['color']) 
+		? Developry_BS4_Helpers::set('color', 'bg-' . $atts['color']) 
 		: '';
 
 	$atts['text'] = isset($atts['text']) 
@@ -46,7 +46,7 @@ function developry_bs4_shortcode_blockquote( $atts, $content = null ) {
 	// Build tag attributes.
 	$atts = shortcode_atts( 
 		array(
-			'class' => 'blockquote' . $atts['bg'] . $atts['text'] . $atts['align'] . $atts['xclass'],
+			'class' => 'blockquote' . $atts['color'] . $atts['text'] . $atts['align'] . $atts['xclass'],
 		), $atts
 	);
 

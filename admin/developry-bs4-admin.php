@@ -9,22 +9,6 @@ class Developry_BS4_Admin {
 	// Plugin root URL set by the constuctor.
 	private $plugin_url;
 
-	// Files with shortcode modal editor.windowManger body in /admin/shortcodes.
-	private $components = array(
-		'alert',
-		'badge',
-		'blockquote',
-		'button',
-		'image',
-		'jumbotron', 
-		'typography/br',
-		'typography/hr',
-		'typography/list',
-		'typography/list-item',
-		'typography/text',
-		// 'gallery',
-	);
-
 	// Constructor.
 	public function __construct() {
 
@@ -86,25 +70,37 @@ class Developry_BS4_Admin {
 				'enqueue_admin_scripts',
 			)
 		);
+
+		add_filter(
+			'tiny_mce_before_init', 
+			array(
+				$this, 
+				'customize_tinymce'
+			), 
+			1, 2
+		);
+
+		// Loading some custom styles to our editor as well as Bootstrap (if not found)
+		add_editor_style($this->plugin_url . '/assets/css/developry-bs4-editor.css');
+		add_editor_style('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css');
+	}
+
+
+	// Cutomize TinyMCE options on WP before loading it.
+	public function customize_tinymce( $tinymce, $editor ) {
+		// Nothing changing yet.
+		return $tinymce;
 	}
 
 	// Register our plugin into the TinyMCE and load all components body for editor.windowManager.
 	public function register_tinymce_plugin( $plugins ) {
 
-		// Loading the class for TinyMCE editor [iframe window].
-		$plugins['developry_bs4_shortcode_class'] = $this->plugin_url . '/assets/js/developry-bs4-loader.js';
-
-		foreach ($this->components as $component) {
-
-			$component_parts     = explode('/', $component);
-			$component_filename  = end($component_parts);
-			$component_url = str_replace('admin', '', $this->plugin_url);
-		
-			$plugins['developry_bs4_shortcode_' . $component] =  $component_url . '/shortcodes/' . $component . '/' . $component_filename . '.js';
-		}
-
 		// This is the main JS files that will handle TinyMCE customization.
-		$plugins['developry_bs4_shortcode_init'] = $component_url . '/shortcodes/init.js';
+		$plugins['developry_bs4_shortcode'] = $this->plugin_url . '/developry-bs4-admin.js';
+
+		// Load certain plugins for TinyMCE Vizualize not avilable in WordPress distro
+		// ( https://github.com/tinymce/tinymce-dist/tree/master/plugins )
+		$plugins['contextmenu'] = $this->plugin_url . '/plugins/tinymce/contextmenu/plugin.js';
 
 	    return $plugins;
 	}
@@ -120,7 +116,7 @@ class Developry_BS4_Admin {
 	    return $buttons;
 	}
 
-	// Add plugin custom CSS into the footer of the WP admin area.
+	// Add additional plugin custom CSS into the footer of the WP admin area.
 	public function enqueue_admin_styles() {
 
 		wp_enqueue_style(
@@ -132,24 +128,64 @@ class Developry_BS4_Admin {
 		);
 	}
 
-	// Add plugin custom JS into the footer of the WP admin area.
+	// Add additional plugin custom JS into the footer of the WP admin area.
 	public function enqueue_admin_scripts() {
 
-		// Loading the class for the main window.
+		// wp_enqueue_script(
+		// 	'developry-bs4-admin', 
+		// 	$this->plugin_url . '/assets/js/script.js', 
+		// 	array( 'jquery' ), 
+		// 	null, 
+		// 	true
+		// );
+
 		wp_enqueue_script(
-			'developry-bs4-init', 
-			$this->plugin_url . '/assets/js/developry-bs4-loader.js', 
+			'requirejs', 
+			$this->plugin_url . '/assets/js/require.js', 
+			null, 
+			null, 
+			true
+		);
+
+		wp_enqueue_script(
+			'class-developry-bs4-admin', 
+			$this->plugin_url . '/classes/class-developry-bs4-admin.js', 
 			array( 'jquery' ), 
 			null, 
 			true
 		);
 
 		wp_enqueue_script(
-			'developry-bs4-admin', 
-			$this->plugin_url . '/assets/js/developry-bs4-admin.js', 
+			'class-developry-bs4-shortcodes', 
+			$this->plugin_url . '/classes/class-developry-bs4-shortcodes.js', 
 			array( 'jquery' ), 
 			null, 
 			true
+		);
+
+		wp_enqueue_script(
+			'class-developry-bs4-window', 
+			$this->plugin_url . '/classes/class-developry-bs4-window.js', 
+			array( 'jquery' ), 
+			null, 
+			true
+		);
+
+		wp_enqueue_script(
+			'class-developry-bs4-utility', 
+			$this->plugin_url . '/classes/class-developry-bs4-utility.js', 
+			array( 'jquery' ), 
+			null, 
+			true
+		);
+
+		// Pass plugin URL base to Window class.
+		wp_localize_script(
+			'class-developry-bs4-window', 
+			'Developry',
+			array(
+    			'baseurl' =>  plugins_url('',  __FILE__ ),
+			)
 		);
 	}
 }
