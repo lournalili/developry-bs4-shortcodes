@@ -1,5 +1,7 @@
 # Develop(ry) Bootstrap 4 Shortcodes
 
+![](http://www.developry.com/developry-bs4-shortcodes-30sec-giphy-normal-standard.gif "Giphy")
+
 **WORK IN PROGRESS**
 
 **This WordPress plugin is not yet ready for use in production.** 
