@@ -41,45 +41,45 @@ Developry.window     = new Developry_BS4_Window;
 		init : function( editor, url ) {
 
 			// Adding custom context menu links to handle our Visualize editor Edit and Delete.
-	      	editor.addMenuItem( 'developry_bs4_shortcodes_edit', {
-	         	text    : 'Edit',
-	         	icon    : 'dashicon dashicons-edit',
-	         	context : 'tools',
-	         	onclick : function( event ) {
-	            	
-	            	var node = editor.selection.getNode();
-	         	
-	            	if ( editor.dom.getAttrib( node, 'data-shortcode-tag' )
-	            		&& editor.dom.getAttrib( node, 'data-shortcode' ) ) {
+			editor.addMenuItem( 'developry_bs4_shortcodes_edit', {
+				text    : 'Edit',
+				icon    : 'dashicon dashicons-edit',
+				context : 'tools',
+				onclick : function( event ) {
+					
+					var node = editor.selection.getNode();
+				
+					if ( editor.dom.getAttrib( node, 'data-shortcode-tag' )
+						&& editor.dom.getAttrib( node, 'data-shortcode' ) ) {
 
-	            		var shortcode_tag  = editor.dom.getAttrib( node, 'data-shortcode-tag' );
-	            		var shortcode_data = decodeURIComponent( editor.dom.getAttrib( node, 'data-shortcode' ) );
+						var shortcode_tag  = editor.dom.getAttrib( node, 'data-shortcode-tag' );
+						var shortcode_data = decodeURIComponent( editor.dom.getAttrib( node, 'data-shortcode' ) );
 
-	            		dev.window[shortcode_tag]( editor, true );
-	            	}
-	         	}
-	      	});
+						dev.window[shortcode_tag]( editor, true );
+					}
+				}
+			});
 
-	      	editor.addMenuItem( 'developry_bs4_shortcodes_delete', {
-	         	text    : 'Delete',
-	         	icon    : 'dashicon dashicons-trash',
-	         	context : 'tools',
-	         	onclick : function( event ) {
+			editor.addMenuItem( 'developry_bs4_shortcodes_delete', {
+				text    : 'Delete',
+				icon    : 'dashicon dashicons-trash',
+				context : 'tools',
+				onclick : function( event ) {
 
-	            	var node 							= editor.selection.getNode();
-	            	var editor_content 					= tinymce.get('content').getContent( { format : 'html' } );
-	            	var editor_selection_data_shortcode = node.getAttribute( 'data-shortcode' );
+					var node 							= editor.selection.getNode();
+					var editor_content 					= tinymce.get('content').getContent( { format : 'html' } );
+					var editor_selection_data_shortcode = node.getAttribute( 'data-shortcode' );
 
-	            	editor_content = editor_content.replace(editor.selection.getContent( { format : 'html' } ), '');
-	            	editor_content = editor_content.replace(editor_selection_data_shortcode, '');
+					editor_content = editor_content.replace(editor.selection.getContent( { format : 'html' } ), '');
+					editor_content = editor_content.replace(editor_selection_data_shortcode, '');
 
 					editor.setContent( editor_content, { format: 'html' } );
-	            	
-	            	// NOTE: Another way to remove the deleted item from the DOM.
-	            	// editor.selection.select( node );
-	            	// editor.dom.remove( node );
-	         	}
-	      	});
+					
+					// NOTE: Another way to remove the deleted item from the DOM.
+					// editor.selection.select( node );
+					// editor.dom.remove( node );
+				}
+			});
 			
 			// Add TinyMCE buttons for all the shortcodes.
 			editor.addButton( 'developry_bs4_shortcode_element_button', {

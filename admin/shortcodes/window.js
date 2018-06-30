@@ -2,16 +2,18 @@
 
 // Common JS file to build editorWindow(s) for our shortcodes,
 // using require.js to load up.
-function editorWindow( editor, body, onSubmit, type, text ) { 	
+function editorWindow( editor, shortcode_window_body, onSubmit, shortcode_tag, text ) { 	
+
+	var shortcode_html = editor.selection.getContent( { 'format' : 'html' } );
 
 	editor.windowManager.open({
 		
 		title    : 'Develop(ry) Shortcodes > Elements > ' + text,
 		minWidth : 640,
 		body 	 : Developry.utils.getShortcode( 
-			type, 
-			editor.selection.getContent( { 'format' : 'html' } ), 
-			body 
+			shortcode_tag, 
+			shortcode_html, 
+			shortcode_window_body 
 		),
 		onsubmit : function( event ) {
 

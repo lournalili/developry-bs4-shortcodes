@@ -1,6 +1,6 @@
 <?php
 /**
- 	Plugin Name:  Develop(ry) Bootstrap 4 Shortcodes
+	Plugin Name:  Develop(ry) Bootstrap 4 Shortcodes
 	Plugin URL:   http://developry.com/developry-bootstrap-4-shortcodes
 	Description:  A WordPress plugin with set of shortcodes for Bootstrap 4.
 	Version:      1.0.0
@@ -278,49 +278,49 @@ final class Developry_BS4_Helpers {
 	public static function in_multiarr( $att, $atts ) {
 
 		while ( current( $atts ) !== false ) {
-	    
-	        if ( current( $atts ) === $att ) {
-	    
-	            return true;
-	    
-	        } elseif ( is_array( current( $atts ) ) ) {
-	    
-	            if ( in_multiarr( $att, current( $atts ) ) ) {
-	    
-	                return true;
-	            }
-	        }
-	        next( $atts );
-	    } 
-        return false;
+		
+			if ( current( $atts ) === $att ) {
+		
+				return true;
+		
+			} elseif ( is_array( current( $atts ) ) ) {
+		
+				if ( in_multiarr( $att, current( $atts ) ) ) {
+		
+					return true;
+				}
+			}
+			next( $atts );
+		} 
+		return false;
 	}
 
 	// Convert a multi array into a string, used to build HTML tag attributes.
 	//
 	// Array ( [class] => alert alert-primary alert-dismissible fade show m-5 [role] => alert )
-    // ...
-    // class="alert alert-primary alert-dismissible fade show m-5" role="alert"
-    //
+	// ...
+	// class="alert alert-primary alert-dismissible fade show m-5" role="alert"
+	//
 	public static function implode_atts( $atts ) {
 
 		return implode( ' ', 
-    		array_map(
-			    function ( $val, $key ) {
+			array_map(
+				function ( $val, $key ) {
 			
-			        if ( is_array( $val ) ) {
+					if ( is_array( $val ) ) {
 			
-			        	if ( $val )
-			            	return $key . '[]=' . implode( '&', $key . '[]=', esc_attr( $val ) );
+						if ( $val )
+							return $key . '[]=' . implode( '&', $key . '[]=', esc_attr( $val ) );
 			
-			        } else {
+					} else {
 			
-			        	if ( $val )
-			            	return $key . '="' . esc_attr( $val ) . '" ';
-			        }
-			    }, 
-			    $atts, 
-			    array_keys( $atts )
+						if ( $val )
+							return $key . '="' . esc_attr( $val ) . '" ';
+					}
+				}, 
+				$atts, 
+				array_keys( $atts )
 			) 
-    	);
+		);
 	}
 }

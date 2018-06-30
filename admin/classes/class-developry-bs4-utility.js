@@ -1,7 +1,7 @@
 'use strict';
 
 // Utility functions to manipulate our plugin shortcodes.
-var Developry_BS4_Utils = ( function( $,dev ) {
+var Developry_BS4_Utils = ( function( $, dev ) {
 
     var Developry_BS4_Utils = function () {
 
@@ -106,16 +106,27 @@ var Developry_BS4_Utils = ( function( $,dev ) {
 				// disable the 'Number of Items?' option
 				if (selected_arr[3] === '[/list]' 
 					&& selected_arr[2] !== '') {
+
 					body[1].disabled = true;
 				}
 
-				// Populate the content area.
+				// Populate the content area but first check if there is 
+				// text &/ text + shortcode content.
 				if ( body[0].name === 'content' ) {
 
-					var tmp = document.createElement("DIV");
-					tmp.innerHTML = selected_arr[2];
+					var content_parts = $.parseHTML( selected_arr[2] )
 
-					body[0].value = tmp.textContent || tmp.innerText || '';
+					$.each( content_parts, function( i, content_part ) {			
+
+						if ( content_part.nodeType === 3 ) {
+
+							body[0].value +=  content_part.textContent;
+
+						} else {
+
+							body[0].value += decodeURIComponent(content_part.getAttribute('data-shortcode'));
+						}
+					});
 				}
 
 			} else {

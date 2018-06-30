@@ -102,7 +102,7 @@ class Developry_BS4_Admin {
 		// ( https://github.com/tinymce/tinymce-dist/tree/master/plugins )
 		$plugins['contextmenu'] = $this->plugin_url . '/plugins/tinymce/contextmenu/plugin.js';
 
-	    return $plugins;
+		return $plugins;
 	}
 
 	// Add plugin button into the TinyMCE toolbar.
@@ -112,8 +112,8 @@ class Developry_BS4_Admin {
 			$buttons, 
 			'developry_bs4_shortcode_element_button'
 		);
-	    
-	    return $buttons;
+		
+		return $buttons;
 	}
 
 	// Add additional plugin custom CSS into the footer of the WP admin area.
@@ -184,7 +184,7 @@ class Developry_BS4_Admin {
 			'class-developry-bs4-window', 
 			'Developry',
 			array(
-    			'baseurl' =>  plugins_url('',  __FILE__ ),
+				'baseurl' =>  plugins_url('',  __FILE__ ),
 			)
 		);
 	}
