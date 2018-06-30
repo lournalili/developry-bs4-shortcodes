@@ -148,7 +148,7 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 
 			$.each( shortcode_tags, function( id, shortcode ) {
 
-				editor_content = wp.shortcode.replace(shortcode, editor_content, convertShortcodeToHTML);
+				// editor_content = wp.shortcode.replace(shortcode, editor_content, convertShortcodeToHTML);
 			});
 	 	
 	 		tinymce.get('developry-shortcodes-preview-editor').setContent( editor_content, { format: 'html' } );
@@ -165,30 +165,20 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 				return false;
 			}
 
-			var editor_new_content = '';
 			var editor_content = editor.getContent( { format : 'html' } );
-			var editor_parted_content = editor_content.split('<\/p><p>');
 
-			if ( 'on' === state ) {		
+			if ( 'on' === state ) {
 
-				$.each ( editor_parted_content, function( i, content_block ) {
+				$.each( shortcode_tags, function( id, shortcode ) {
 
-					editor_new_content += '<div class="shortcode-block">';
-
-					$.each( shortcode_tags, function( id, shortcode_block ) {
-
-						content_block = wp.shortcode.replace(shortcode_block, content_block, convertShortcodeToHTML);
-						// editor_content = wp.shortcode.replace(shortcode, editor_content, convertShortcodeToHTML);
-					});
-
-					editor_new_content += content_block + '</div>';
+					// editor_content = wp.shortcode.replace(shortcode, editor_content, convertShortcodeToHTML);
 				});
 
-				editor.setContent( editor_new_content, { format: 'html' } );
+				editor.setContent( editor_content, { format: 'html' } );
 
 			} else {
 
-				editor_content = convertHTMLToShortcodes( editor, editor_content );
+				// editor_content = convertHTMLToShortcodes( editor, editor_content );
 
 				editor.setContent( editor_content, { format: 'html' } );
 			}
@@ -225,139 +215,7 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 
     	// ### Private functions.
 
-    	// Convert all shortcodes to HTML blocks
-		var convertShortcodeToHTML = function( shortcode_obj ) {
-
-			var shortcode_str  = wp.shortcode.string( shortcode_obj, tinymce.get( 'content' ) );
-
-			var shortcode_html = dev.shortcodes.load( shortcode_obj );
-
-			return shortcode_html;
-		};
-/* !REFERENCE	
-var convertShortcodeToHTML = function( shortcode ) {
-	var editor_content = '';
-	if ( ! shortcode ) {
-		return;
-	}
-	var shortcode_data = wp.shortcode.string( shortcode, tinymce.get( 'content' ) )
-	editor_content += '<div class="wpview wpview-wrap" data-wpview-text="' 
-		+ encodeURIComponent( shortcode_data )
-		+ '" data-wpview-type="' + shortcode.tag.trim() + '" contenteditable="false">';
-	// Initialize and load shortcode HTML.
-	editor_content += dev.shortcodes.load( shortcode );
-	editor_content += '<span class="wpview-end"></span></div>';
-	return editor_content;
-};
-*/
-		// Convert all HTML blocks associated with shortcodes back to shortcodes.
-		var convertHTMLToShortcodes = function( editor, editor_content ) {
-
-			var editor_content_blocks = editor_content.split('<\/div><div class=\"shortcode-block\">');
-
-			var editor_new_content = '';
-			var rel_content 	   = {};
-			var shortcode_content  = [];
-			var shortcode_block   = [];
-
-			$.each( editor_content_blocks, function(i, editor_content_block) {
-
-				shortcode_block[i] = $( '<div/>' ).html( editor_content_block ).find( '*' );
-			});
-			
-			$.each( shortcode_block, function( i, shortcodes ) {
-
-				var cnt = 0;
-				rel_content[i] = {};
-
-				$.each( shortcodes, function( j, shortcode ) {
-
-					var html            = shortcode.outerHTML;
-					var shortcode_data  = decodeURIComponent( shortcode.getAttribute('data-shortcode') );
-
-					if ( shortcode_data !== 'null' ) {
-
-						rel_content[i][cnt] = {};
-						rel_content[i][cnt].html = html;
-						rel_content[i][cnt].shortcode = shortcode_data;
-
-						shortcode_content.push(decodeURIComponent(shortcode_data));
-
-						cnt++;
-					}
-				});
-			});
-
-			var shortcode_parents = [];
-			var shortcode_parent_i = '';
-
-			$.each( rel_content, function( i, shortcodes ) {
-
-				shortcode_parents[i] = rel_content[i][0].shortcode;
-			});
-
-			$.each( shortcode_parents, function( i, shortcode_parent ) {
-
-				shortcode_parent_i = this;
-
-				if ( shortcode_parent_i ) {
-
-					$.each( rel_content[i], function( j, elem ) {
-
-						if ('0' !== j && this.html !== undefined) {
-
-							shortcode_parent_i = shortcode_parent_i.replace(this.html, this.shortcode);
-							shortcode_parent_i = shortcode_parent_i.replace(this.html, encodeURIComponent(this.shortcode));
-						}
-					});
-
-					editor_new_content += '<p>' + shortcode_parent_i + '</p>'
-				}
-			});
-
-			return editor_new_content;
-		};
-/* !REFERENCE
-var convertHTMLToShortcodes = function( editor, editor_content ) {
-	var dom  = editor.dom.getOuterHTML();
-	var wrap = $( '<div/>' ).html( editor_content );
-	for (var idx = 0; idx < wrap.find( '.wpview' ).length; idx++) {
-		var shorcode_obj   = wrap.find( '.wpview' ).get(idx);
-		var shortcode_text = decodeURIComponent( shorcode_obj.getAttribute( 'data-wpview-text' ) );
-		editor_content +=  shortcode_text;
-		if ( editor_content === '' ) {
-			editor_content = '<p>' +  shortcode_text  + '</p>';
-		} else {
-			editor_content += editor_content.replace(shortcode_text, '<p>' +  shortcode_text  + '</p>');
-		}
-	}
-	return editor_content.replace(/<p[^>]*>/g, '');
-}
-*/
-/* !REFERENCE
-var updateNestedShortcodes = function( visual_content, shortcode_content ) {
-	if ( shortcode_content ) {
-		// Update visual content.
-		var selection_content_html = tinymce.get('content').selection.getNode().getAttribute('data-wpview-text');
-		var selection_parent_content_html = tinymce.get('content').selection.getNode().outerHTML;
-		// Remove the selected attribute.
-		selection_parent_content_html = selection_parent_content_html.replace(' data-mce-selected="2"', ''); 
-		// Replace the tail of our parent.
-		selection_parent_content_html = selection_parent_content_html.replace('</div>', '<span class="wpview-end"></span></div>'); 
-		// The shorcode tag keyword should be at match[1]
-		var regexp = new RegExp('\\[([a-z-]+)(\\s[\\s\\S]*?)?\\]'
-			+ '(?:((?!\\s*?(?:\\[([a-z-]+)[(.?)+]|\\[\\/(?!([a-z-]+))))[\\s\\S]*?)' 
-			+ '(\\[\/([a-z-]+)\\]))?');
-		var shortcode_tag 			  = shortcode_content.match(regexp);
-		var shortcode_encoded_content = encodeURIComponent(shortcode_content);
-		var shortcode_content_html = wp.shortcode.replace(shortcode_tag[1], shortcode_content, convertShortcodeToHTML);
-		visual_content = visual_content.replace(selection_parent_content_html, shortcode_content_html);
-		visual_content = visual_content.replace(selection_content_html, shortcode_encoded_content);
-		// Update editor content.
-	}
-	return visual_content;
-};
-*/
+    	
     };
 
     return Developry_BS4_Admin;
