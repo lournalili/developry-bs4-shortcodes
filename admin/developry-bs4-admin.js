@@ -7,7 +7,6 @@ var url = window.Developry.baseurl || false;
 
 // Set the base URL for our shortcode modules.
 if ( url ) {
-	
 	requirejs.config( {
 		baseUrl: url + '/shortcodes'
 	} );

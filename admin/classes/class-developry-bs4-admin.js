@@ -165,20 +165,29 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 				return false;
 			}
 
+			var editor_new_content = '';
 			var editor_content = editor.getContent( { format : 'html' } );
+			var editor_parted_content = editor_content.split('<\/p><p>');
 
-			if ( 'on' === state ) {
+			if ( 'on' === state ) {		
 
-				$.each( shortcode_tags, function( id, shortcode ) {
+				$.each ( editor_parted_content, function( i, content_block ) {
 
-					editor_content = wp.shortcode.replace(shortcode, editor_content, convertShortcodeToHTML);
+					editor_new_content += '<div class="shortcode-block">';
+
+					$.each( shortcode_tags, function( id, shortcode_block ) {
+
+						content_block = wp.shortcode.replace(shortcode_block, content_block, convertShortcodeToHTML);
+						// editor_content = wp.shortcode.replace(shortcode, editor_content, convertShortcodeToHTML);
+					});
+
+					editor_new_content += content_block + '</div>';
 				});
 
-				editor.setContent( editor_content, { format: 'html' } );
+				editor.setContent( editor_new_content, { format: 'html' } );
 
 			} else {
 
-				//editor_content = updateNestedShortcodes( editor_content )
 				editor_content = convertHTMLToShortcodes( editor, editor_content );
 
 				editor.setContent( editor_content, { format: 'html' } );
@@ -244,33 +253,69 @@ var convertShortcodeToHTML = function( shortcode ) {
 		// Convert all HTML blocks associated with shortcodes back to shortcodes.
 		var convertHTMLToShortcodes = function( editor, editor_content ) {
 
-			var rel_content 	  = {};
-			var shortcode_content = [];
-			var shortcodes 		  = $( '<div/>' ).html( editor_content ).find( '*' );
+			var editor_content_blocks = editor_content.split('<\/div><div class=\"shortcode-block\">');
 
-			$.each( shortcodes, function( i, shortcode ) {
+			var editor_new_content = '';
+			var rel_content 	   = {};
+			var shortcode_content  = [];
+			var shortcode_block   = [];
 
-				var html            = shortcode.outerHTML;
-				var shortcode_data  = decodeURIComponent( shortcode.getAttribute('data-shortcode') );
+			$.each( editor_content_blocks, function(i, editor_content_block) {
 
+				shortcode_block[i] = $( '<div/>' ).html( editor_content_block ).find( '*' );
+			});
+			
+			$.each( shortcode_block, function( i, shortcodes ) {
+
+				var cnt = 0;
 				rel_content[i] = {};
-				rel_content[i].html = html;
-				rel_content[i].shortcode = shortcode_data;
 
-				shortcode_content.push(decodeURIComponent(shortcode_data));
+				$.each( shortcodes, function( j, shortcode ) {
+
+					var html            = shortcode.outerHTML;
+					var shortcode_data  = decodeURIComponent( shortcode.getAttribute('data-shortcode') );
+
+					if ( shortcode_data !== 'null' ) {
+
+						rel_content[i][cnt] = {};
+						rel_content[i][cnt].html = html;
+						rel_content[i][cnt].shortcode = shortcode_data;
+
+						shortcode_content.push(decodeURIComponent(shortcode_data));
+
+						cnt++;
+					}
+				});
 			});
 
-			var shortcode_parent = rel_content[0].shortcode;
+			var shortcode_parents = [];
+			var shortcode_parent_i = '';
 
-			$.each(rel_content, function(i, elem) {
+			$.each( rel_content, function( i, shortcodes ) {
 
-				if ('0' !== i) {
-					
-					shortcode_parent = shortcode_parent.replace(this.html, this.shortcode);
+				shortcode_parents[i] = rel_content[i][0].shortcode;
+			});
+
+			$.each( shortcode_parents, function( i, shortcode_parent ) {
+
+				shortcode_parent_i = this;
+
+				if ( shortcode_parent_i ) {
+
+					$.each( rel_content[i], function( j, elem ) {
+
+						if ('0' !== j && this.html !== undefined) {
+
+							shortcode_parent_i = shortcode_parent_i.replace(this.html, this.shortcode);
+							shortcode_parent_i = shortcode_parent_i.replace(this.html, encodeURIComponent(this.shortcode));
+						}
+					});
+
+					editor_new_content += '<p>' + shortcode_parent_i + '</p>'
 				}
 			});
 
-			return shortcode_parent;
+			return editor_new_content;
 		};
 /* !REFERENCE
 var convertHTMLToShortcodes = function( editor, editor_content ) {
@@ -289,10 +334,6 @@ var convertHTMLToShortcodes = function( editor, editor_content ) {
 	return editor_content.replace(/<p[^>]*>/g, '');
 }
 */
-		var updateNestedShortcodes = function( editor_content ) {
-
-		};
-
 /* !REFERENCE
 var updateNestedShortcodes = function( visual_content, shortcode_content ) {
 	if ( shortcode_content ) {
