@@ -278,10 +278,12 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 				if (editor_content_html[0].nodeType === 3) {
 
 					editor_content_blocks_arr[i] = editor_content_html[0].textContent;
-				} else {
+					
+					return true;
+				} 
 
-					editor_content_blocks_arr[i] = $( '<div/>' ).html( editor_content_block ).find( '*' );
-				}
+				editor_content_blocks_arr[i] = $( '<div/>' ).html( editor_content_block ).find( '*' );
+
 			});
 
 			// Go over each shortcode block and put into an rel object to match the HTML to shortcode 
@@ -311,8 +313,14 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 							rel_content[i][counter].shortcode = shortcode_data;
 
 							shortcode_content.push( decodeURIComponent( shortcode_data ) );
-							counter++;
-						} 
+							
+						} else {
+
+							// In this case we have regular HTML tag.
+							rel_content[i][counter].html = html;
+						}
+
+						counter++;
 					});
 				}
 			});
@@ -344,8 +352,15 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 
 						if ('0' !== j && this.html !== undefined) {
 
-							shortcode_parent_i = shortcode_parent_i.replace(this.html, this.shortcode);
-							shortcode_parent_i = shortcode_parent_i.replace(this.html, encodeURIComponent(this.shortcode));
+							if ( this.shortcode !== undefined ) {
+
+								shortcode_parent_i = shortcode_parent_i.replace(this.html, this.shortcode);
+								shortcode_parent_i = shortcode_parent_i.replace(this.html, encodeURIComponent(this.shortcode));
+
+							} else {
+
+								shortcode_parent_i = shortcode_parent_i.replace(this.html, this.html);
+							}
 						}
 					});
 
