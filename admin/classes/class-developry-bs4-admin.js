@@ -151,33 +151,7 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 
 			$( '#developry-shortcodes-preview-editor' ).prev().toggle();
 			$( '#wp-content-editor-tools .wp-editor-tabs, #wp-content-editor-container').toggle();
-		};
-
-		// Shortcode to HTML & HTML to shortcode
-		this.loadShortcodesVisualEditor = function( state, editor ) {
-
-			if ( ! state.length || ! editor.initialized ) {
-			
-				return false;
-			}
-
-			var editor_content = editor.getContent( { format : 'html' } );
-
-			if ( 'on' === state ) {
-
-				editor.setContent( 
-					shortcodesToHTML( editor_content ), 
-					{ format: 'html' } 
-				);
-
-			} else {
-
-				editor.setContent( 
-					HTMLtoShortcodes( editor, editor_content ), 
-					{ format: 'html' } 
-				);
-			}
-		}
+		};		
 
 		// Highlight all shortcodes with <mark></mark> around them.
 		this.highlightShortcodes = function ( state, editor ) {	
@@ -208,6 +182,32 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 			editor.setContent( editor_content, { format: 'html' } );
 		};
 
+		// Shortcode to HTML & HTML to shortcode
+		this.loadShortcodesVisualEditor = function( state, editor ) {
+
+			if ( ! state.length || ! editor.initialized ) {
+			
+				return false;
+			}
+
+			var editor_content = editor.getContent( { format : 'html' } );
+
+			if ( 'on' === state ) {
+
+				editor.setContent( 
+					shortcodesToHTML( editor_content ), 
+					{ format: 'html' } 
+				);
+
+			} else {
+
+				editor.setContent( 
+					HTMLtoShortcodes( editor, editor_content ), 
+					{ format: 'html' } 
+				);
+			}
+		}
+
 		// ### Private functions.
 
 		// Convert all shortcodes to HTML blocks
@@ -221,13 +221,11 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 
 			$.each( html, function( i, html_pee_content ) {
 
-				editor_content_pees[i] = html_pee_content.innerHTML;
+				editor_content_pees[i] = html_pee_content.outerHTML;
 			});
 
 			// Go over all blocks and add a <div/> to distinct them.
 			$.each( editor_content_pees, function( i, pee_content ) {
-
-				pee_content_blocks += '<div class="shortcode-block">';
 
 				// Go over each tag from our plugin and convert the shortcode 
 				// into HTML (see /admin/class/class-developry-bs4-shortcodes.js).
@@ -236,7 +234,15 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 					pee_content = wp.shortcode.replace(shortcode, pee_content, getShortcodeHTML);
 				});
 
-				pee_content_blocks += pee_content + '</div>';
+				// 
+				if ( $.parseHTML(pee_content)[0].dataset === undefined ) {
+
+					pee_content_blocks += pee_content;
+
+				} else {
+
+					pee_content_blocks += '<div class="shortcode-block">' + pee_content + '</div>';
+				}
 			});
 
 			// Return the new editor content with converted shortcodes into blocks. 
@@ -251,73 +257,92 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 		}
 
 		// Convert all HTML blocks associated with shortcodes back to shortcodes.
-		var HTMLtoShortcodes = function( editor, editor_content ) {
+		var HTMLtoShortcodes = function( editor, content ) {
 
-			var counter     				= '';
-			var html 	 					= '';
-			var shortcode_data 				= '';
-			var rel_content 				= {};
-			var shortcode_content  		   	= [];
-			var editor_content_blocks  		= [];
-			var editor_content_blocks_arr 	= [];
-			var editor_new_content 			= '';
+			var html 	    = '';
+			var blocks      = [];
+			var rel_content = {};
+			var parents     = [];
+			var new_content = '';
 
-			// Separate content by shortcode blocks. 
-			var html = $.parseHTML( editor_content );
-
-			$.each( html, function( i, html_block_content ) {
-
-				editor_content_blocks[i] = html_block_content.innerHTML;
-			});
+			// Separate content by shortcode blocks.
+			html = $.parseHTML( content );
 
 			// Place each shortcode block into <div/> with nodes added into a array.
-			$.each( editor_content_blocks, function( i, editor_content_block ) {
+			$.each( html, function( i, block ) {
 
-				var editor_content_html = $.parseHTML( editor_content_block );
+				var block_content = '';
 
-				if (editor_content_html[0].nodeType === 3) {
+				if ( block.className === 'shortcode-block' ) {
 
-					editor_content_blocks_arr[i] = editor_content_html[0].textContent;
-					
-					return true;
-				} 
+					// Get us the HTML between shortcode-block at [0].
+					blocks[i] = $( '<div/>' ).html( block.innerHTML ).find( '*' );
 
-				editor_content_blocks_arr[i] = $( '<div/>' ).html( editor_content_block ).find( '*' );
+				} else {
 
+					blocks[i] = block.innerHTML;
+				}
 			});
 
-			// Go over each shortcode block and put into an rel object to match the HTML to shortcode 
-			$.each( editor_content_blocks_arr, function( i, shortcodes ) {
+			// Go over each shortcode block and put into an rel object to match the HTML to shortcode.
+			rel_content = getRelationContent( blocks );
+			
+			// Lets start converting our HTML to shortcodes (first get all the parents).
+			$.each( rel_content, function( i, rel ) {
+
+				if ( rel[0].hasOwnProperty('shortcode') ) {
+
+					parents[i] = this[0].shortcode;
+
+				} else {
+
+					parents[i] = this[0].html;
+				}
+			});
+
+			// Build up the new editor content using the rel_content structure.
+			new_content = getNewContent( parents, rel_content );
+
+			return new_content;
+		}
+		
+		// Get the relation between our content html/shortcodes/normal editor content.
+		var getRelationContent = function( blocks ) {
+
+			var counter     = 0;
+			var shortcode_html = '';
+			var shortcode_data = '';
+			var rel_content = {};
+
+			$.each( blocks, function( i, block ) {
 
 				counter 	   = 0;
 				rel_content[i] = {};
 
-				if (typeof shortcodes === 'string') {
+				if (typeof block === 'string') {
 
 					rel_content[i][counter] = {};
-					rel_content[i][counter].html = shortcodes;
+					rel_content[i][counter].html = block;
 
 					counter++;
 
 				} else {
 
-					$.each( shortcodes, function( j, shortcode ) {
+					$.each( block, function( j, shortcode ) {
 
-						html                	= shortcode.outerHTML;
+						shortcode_html          = shortcode.outerHTML;
 						shortcode_data      	= decodeURIComponent( shortcode.getAttribute( 'data-shortcode' ) );
 						rel_content[i][counter] = {};
 
 						if ( shortcode_data !== 'null' ) {
 
-							rel_content[i][counter].html 	  = html;
+							rel_content[i][counter].html 	  = shortcode_html;
 							rel_content[i][counter].shortcode = shortcode_data;
 
-							shortcode_content.push( decodeURIComponent( shortcode_data ) );
-							
 						} else {
 
-							// In this case we have regular HTML tag.
-							rel_content[i][counter].html = html;
+							// In this case we have regular HTML tag/text from the editor.
+							rel_content[i][counter].html = shortcode_html;
 						}
 
 						counter++;
@@ -325,54 +350,47 @@ var Developry_BS4_Admin = ( function( $, dev ) {
 				}
 			});
 
-			// Lets start converting our HTML to shortcodes (first get all the parents)
-			var shortcode_parents = [];
-			var shortcode_parent_i = '';
+			return rel_content;
+		}
 
-			$.each( rel_content, function( i, shortcodes ) {
+		// Finally lets get our new/updated content and convert it back into HTML and shortcode tags.
+		var getNewContent = function( parents, content ) {
 
-				if (rel_content[i][0].shortcode === undefined) {
+			var new_content   = '';
+			var parent_0      = [];
 
-					shortcode_parents[i] = rel_content[i][0].html;
+			$.each( parents, function( i, parent ) {
 
-				} else if ( ! jQuery.isEmptyObject(rel_content[i])  ) {
+				parent_0 = this;				
 
-					shortcode_parents[i] = rel_content[i][0].shortcode;
-				}
-			});
+				if ( parent_0 ) {
 
-			// Build up the new editor content using the rel_content structure
-			$.each( shortcode_parents, function( i, shortcode_parent ) {
-
-				shortcode_parent_i = this;
-
-				if ( shortcode_parent_i ) {
-
-					$.each( rel_content[i], function( j, elem ) {
+					$.each( content[i], function( j, block ) {
 
 						if ('0' !== j && this.html !== undefined) {
 
+							
+							
 							if ( this.shortcode !== undefined ) {
 
-								shortcode_parent_i = shortcode_parent_i.replace(this.html, this.shortcode);
-								shortcode_parent_i = shortcode_parent_i.replace(this.html, encodeURIComponent(this.shortcode));
+								parent_0 = parent_0.replace(this.html, this.shortcode);
+								parent_0 = parent_0.replace(this.html, encodeURIComponent(this.shortcode));
 
 							} else {
 
-								shortcode_parent_i = shortcode_parent_i.replace(this.html, this.html);
+								parent_0 = parent_0.replace(this.html, this.html);
 							}
 						}
 					});
 
+
 					// Add the pee's we removed earlier.
-					editor_new_content += '<p>' + shortcode_parent_i + '</p>'
+					new_content += '<p>' + parent_0 + '</p>'
 				}
 			});
 
-			return editor_new_content;
+			return new_content;
 		}
-
-
 	};
 
 	return Developry_BS4_Admin;

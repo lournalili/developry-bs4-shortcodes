@@ -3,7 +3,7 @@
 // Common JS file that handles the action when the editorWindow 
 // is submitted and shortcodes are added into the main views.
 // Using require.js
-function editorWindowSubmit( editor,event ) {
+function editorWindowSubmit( editor, event ) {
 
 	// Format self-closing shortcode tags content differently. 
 	if ( event.data.shortcode === 'image'
